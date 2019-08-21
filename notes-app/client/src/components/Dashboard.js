@@ -7,7 +7,8 @@ function Dashboard (props) {
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>{`Welcome back ${name}`}</p>
+      <p>{`Welcome back dashboard ${name}`}</p>
+
     </div>
   )
 }
