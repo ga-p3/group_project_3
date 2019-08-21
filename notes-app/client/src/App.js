@@ -1,31 +1,41 @@
 import React, { Component } from 'react'
-import './App.css'
+import './styles/App.css'
 import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import { Route, Link } from 'react-router-dom'
-import { login, getProfile, signup } from './services/apiService'
+import { Route, Link, Switch } from 'react-router-dom'
+import { login, getFolders, signup } from './services/apiService'
 import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
+import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isSignedIn: false,
-      user: {}
+      user: {},
+      folders: {}
     }
   }
 
   async componentDidMount() {
     try {
-      const fetchedUser = await getProfile()
-      if (fetchedUser) {
+      let folders
+      const fetchedUsers = await getFolders()
+      console.log(fetchedUsers)
+      if (fetchedUsers) {
         this.setState({
           isSignedIn: authService.isAuthenticated(),
-          user: fetchedUser
+          user: fetchedUsers,
+          folders: fetchedUsers.folders
         })
+      fetchedUsers.map(user=>{
+        folders = user.folders
+        return folders
+      })
+      console.log(folders)
       }
       else {
         console.log('no token retrieved on App mount - OK if user not signed in')
@@ -82,7 +92,7 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
-              <Link to='/dashboard'>Dashboard</Link>
+              <Link to='/app/profile'>Profile</Link>
 
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
@@ -97,38 +107,40 @@ class App extends Component {
         </nav>
 
         <main>
-          <Route exact path='/' component={Home} />
+          <Switch>
+            <Route exact path='/' component={Home} />
 
-          <ProtectedRoute
-            path='/dashboard'
-            user={user}
-            component={Dashboard}
-          />
+            <ProtectedRoute
+              path='/dashboard'
+              user={user}
+              component={Dashboard}
+            />
 
-          <Route
-            path='/login'
-            render={
-              (props) =>
-                <Login
-                  {...props}
-                  handleLogin={this.loginUser}
-                  isSignedIn={isSignedIn}
-                />
-            }
-          />
+            <Route
+              path='/login'
+              render={
+                (props) =>
+                  <Login
+                    {...props}
+                    handleLogin={this.loginUser}
+                    isSignedIn={isSignedIn}
+                  />
+              }
+            />
 
-          <Route
-            path='/signup'
-            render={
-              (props) =>
-                <Signup
-                  {...props}
-                  handleSignup={this.signupUser}
-                  isSignedIn={isSignedIn}
-                />
-            }
-          />
-        </main>
+            <Route
+              path='/signup'
+              render={
+                (props) =>
+                  <Signup
+                    {...props}
+                    handleSignup={this.signupUser}
+                    isSignedIn={isSignedIn}
+                  />
+              }
+            />
+            </Switch>
+          </main>
       </div>
     )
   }

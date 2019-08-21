@@ -1,15 +1,26 @@
 import React from 'react'
+import Folders from './Folders'
 
-function Dashboard (props) {
-  const { user } = props
-  const name = (user.name !== undefined) ? user.name : ''
+class Dashboard extends React.Component {
+  constructor (props) {
+    super (props) 
+    this.state = {
+      user: {}, 
+      folders: {}, 
+    }
+  }
 
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>{`Welcome back ${name}`}</p>
-    </div>
-  )
+  render() {
+    // const { user } = props
+    // const name = (user.name !== undefined) ? user.name : ''
+    return(
+      <div>
+           <h1>Dashboard</h1>
+           {/* <p>{`Welcome back ${name}`}</p> */}
+           <Folders />
+      </div>
+    )
+  }
 }
 
 export default Dashboard
