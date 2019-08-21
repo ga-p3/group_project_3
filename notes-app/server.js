@@ -49,7 +49,19 @@ app.get('/', async (req, res) => {
 app.get('/user/:user_id', async (req, res) => {
   try {
     const id = req.params.user_id;
-    const findUser = await Folder.findAll({ where: { userId: id } });
+    // const findUser = await Folder.findAll({ where: { userId: id } });
+    const findUser = await User.findAndCountAll(
+      {
+        where: {
+          id: id
+        },
+        include: [
+          {
+            model: Folder,
+            as: 'folders'
+          }
+        ]
+      })
     res.send(findUser)
   } catch (error) {
     throw error
