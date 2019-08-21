@@ -8,6 +8,7 @@ import { Route, Link } from 'react-router-dom'
 import { login, getFolders, signup } from './services/apiService'
 import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
+import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
@@ -106,38 +107,40 @@ class App extends Component {
         </nav>
 
         <main>
-          <Route exact path='/' component={Home} />
+          <Switch>
+            <Route exact path='/' component={Home} />
 
-          <ProtectedRoute
-            path='/app/profile'
-            user={user}
-            component={Dashboard}
-          />
+            <ProtectedRoute
+              path='/dashboard'
+              user={user}
+              component={Dashboard}
+            />
 
-          <Route
-            path='/login'
-            render={
-              (props) =>
-                <Login
-                  {...props}
-                  handleLogin={this.loginUser}
-                  isSignedIn={isSignedIn}
-                />
-            }
-          />
+            <Route
+              path='/login'
+              render={
+                (props) =>
+                  <Login
+                    {...props}
+                    handleLogin={this.loginUser}
+                    isSignedIn={isSignedIn}
+                  />
+              }
+            />
 
-          <Route
-            path='/signup'
-            render={
-              (props) =>
-                <Signup
-                  {...props}
-                  handleSignup={this.signupUser}
-                  isSignedIn={isSignedIn}
-                />
-            }
-          />
-        </main>
+            <Route
+              path='/signup'
+              render={
+                (props) =>
+                  <Signup
+                    {...props}
+                    handleSignup={this.signupUser}
+                    isSignedIn={isSignedIn}
+                  />
+              }
+            />
+            </Switch>
+          </main>
       </div>
     )
   }
