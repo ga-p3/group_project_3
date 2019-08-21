@@ -16,7 +16,7 @@ export const login = async(data) => {
     const { data: { token, user } } = response
 
     console.log(response.data)
-    
+    localStorage.setItem('userId', user.id)
     localStorage.setItem('token', token)
     return user
   } catch (e) {
@@ -38,14 +38,12 @@ export const signup = async(data) => {
   }
 }
 
-export const getProfile = async() => {
+export const getFolders = async() => {
   try {
-    const response = await api.get('/app/profile')
-    const { data: { user } } = response
-
-    console.log(response.data)
-
-    return user
+    const id = localStorage.getItem('userId')
+    const response = await api.get(`/user/${id}`)
+    let { data } = response
+    return data
   } catch (e) {
     console.log('no user retrieved in authService getProfile - OK if user not signed in')
     throw e

@@ -50,15 +50,14 @@ app.get('/user/:user_id', async (req, res) => {
   try {
     const id = req.params.user_id;
     // const findUser = await Folder.findAll({ where: { userId: id } });
-    const findUser = await User.findAndCountAll(
+    const findUser = await User.findAll(
       {
         where: {
           id: id
         },
         include: [
           {
-            model: Folder,
-            as: 'folders'
+            model: Folder
           }
         ]
       })
