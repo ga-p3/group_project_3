@@ -48,10 +48,6 @@ export const getProfile = async() => {
     return user
   } catch (e) {
     console.log('no user retrieved in authService getProfile - OK if user not signed in')
-<<<<<<< HEAD
-    // throw e
-=======
     throw e
->>>>>>> 94855cddc2b287259ad1aeaa0c666d8cae2cbf85
   }
 }
