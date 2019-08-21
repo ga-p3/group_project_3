@@ -21,13 +21,17 @@ class App extends Component {
   async componentDidMount() {
     try {
       const fetchedUser = await getProfile()
-
-      this.setState({
-        isSignedIn: authService.isAuthenticated(),
-        user: fetchedUser
-      })
+      if (fetchedUser) {
+        this.setState({
+          isSignedIn: authService.isAuthenticated(),
+          user: fetchedUser
+        })
+      }
+      else {
+        console.log('no token retrieved on App mount - OK if user not signed in')
+      }
     } catch (e) {
-      console.log('Issue fetching token')
+      console.log('Issue fetching token on App componentDidMount')
       throw e
     }
   }
