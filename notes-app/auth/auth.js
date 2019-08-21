@@ -6,13 +6,15 @@ const jwt = require('jsonwebtoken')
 
 const JWTStrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
+require('dotenv').config();
+const SECRET = process.env.SECRET
 
 const jwtSign = (payload) => {
-    return jwt.sign(payload, process.env.SECRET)
+    return jwt.sign(payload, SECRET)
 }
 
 passport.use(new JWTStrategy({
-    secretOrKey: process.env.SECRET,
+    secretOrKey: SECRET,
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => { 
     try {
@@ -24,9 +26,10 @@ passport.use(new JWTStrategy({
 
         else {
             done(null, false)
-        }
+        } console.log('no user found')
     } 
     catch (e) {
+        console.log('passport check token by id')
         done(error)
     }
 }))
