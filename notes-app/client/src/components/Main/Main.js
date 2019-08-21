@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom'
 ​
 //components
-import HomeLoggedIn from './components/HomeLoggedIn'
+// import HomeLoggedIn from './components/HomeLoggedIn'
 import Login from './components/Login'
 import Signup from './components/Signup'
 ​
