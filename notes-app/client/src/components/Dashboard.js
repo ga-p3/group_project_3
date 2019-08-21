@@ -10,6 +10,7 @@ class Dashboard extends React.Component {
     }
   }
 
+
   render() {
     // const { user } = props
     // const name = (user.name !== undefined) ? user.name : ''
@@ -21,6 +22,5 @@ class Dashboard extends React.Component {
       </div>
     )
   }
-}
 
 export default Dashboard
