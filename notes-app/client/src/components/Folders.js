@@ -13,19 +13,19 @@ class Folders extends Component {
         }
     }
 
-    async componentDidMount() {
-        await this.fetchFolders()
-    }
+    // async componentDidMount() {
+    //     await this.fetchFolders()
+    // }
 
-    fetchFolders = async () => {
-        try {
-            const folders = await this.props.api.get('/user/:user_id')
-            console.log(folders)
-            this.setState( { folders: folders.data } )
-        } catch (error) {
-            throw error 
-        }
-    }
+    // fetchFolders = async () => {
+    //     try {
+    //         const folders = await this.props.api.get('/user/:user_id')
+    //         console.log(folders)
+    //         this.setState( { folders: folders.data } )
+    //     } catch (error) {
+    //         throw error 
+    //     }
+    // }
 
     renderFolders = () => {
         if (this.state.folders.length) {
