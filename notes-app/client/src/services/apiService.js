@@ -29,8 +29,6 @@ export const signup = async(data) => {
     const response = await api.post('/auth/signup', data)
     const { data: { token, user } } = response
 
-    // console.log(response.data)
-    
     localStorage.setItem('token', token)
     return user
   } catch (e) {
@@ -49,3 +47,4 @@ export const getFolders = async() => {
     throw e
   }
 }
+

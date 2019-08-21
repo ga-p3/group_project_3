@@ -10,7 +10,6 @@ class Dashboard extends React.Component {
     }
   }
 
-
   render() {
     // const { user } = props
     // const name = (user.name !== undefined) ? user.name : ''
