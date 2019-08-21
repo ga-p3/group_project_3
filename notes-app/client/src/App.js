@@ -4,10 +4,20 @@ import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 import { login, getProfile, signup } from './services/apiService'
 import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
+import axios from 'axios'
+
+// const api = axios.create({
+//   baseURL: BASE_URL,
+//   headers: {
+//       'Access-Control-Allow-Origin': '*'
+//   }
+// })
+
+// const axios = require('axios')
 
 class App extends Component {
   constructor(props) {
@@ -97,38 +107,40 @@ class App extends Component {
         </nav>
 
         <main>
-          <Route exact path='/' component={Home} />
+          <Switch>
+            <Route exact path='/' component={Home} />
 
-          <ProtectedRoute
-            path='/dashboard'
-            user={user}
-            component={Dashboard}
-          />
+            <ProtectedRoute
+              path='/dashboard'
+              user={user}
+              component={Dashboard}
+            />
 
-          <Route
-            path='/login'
-            render={
-              (props) =>
-                <Login
-                  {...props}
-                  handleLogin={this.loginUser}
-                  isSignedIn={isSignedIn}
-                />
-            }
-          />
+            <Route
+              path='/login'
+              render={
+                (props) =>
+                  <Login
+                    {...props}
+                    handleLogin={this.loginUser}
+                    isSignedIn={isSignedIn}
+                  />
+              }
+            />
 
-          <Route
-            path='/signup'
-            render={
-              (props) =>
-                <Signup
-                  {...props}
-                  handleSignup={this.signupUser}
-                  isSignedIn={isSignedIn}
-                />
-            }
-          />
-        </main>
+            <Route
+              path='/signup'
+              render={
+                (props) =>
+                  <Signup
+                    {...props}
+                    handleSignup={this.signupUser}
+                    isSignedIn={isSignedIn}
+                  />
+              }
+            />
+            </Switch>
+          </main>
       </div>
     )
   }
