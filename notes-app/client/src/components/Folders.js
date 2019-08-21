@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
+import CreateFolderForm from './FolderForm'
 
-class Folders extends React.Component {
+class Folders extends Component {
     constructor (props) {
         super(props)
         this.state = {
             user: {}, 
-            folders: {}, 
-            title: '', 
+            folders: [], 
+            notes: [], 
             showError: false
         }
     }
@@ -41,7 +42,7 @@ class Folders extends React.Component {
         return(
             <div>
                 <h2>Folder List</h2>
-                {this.renderFolders}
+                {this.renderFolders()}
             </div>
         )
     }

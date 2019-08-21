@@ -10,15 +10,6 @@ import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
 import axios from 'axios'
 
-// const api = axios.create({
-//   baseURL: BASE_URL,
-//   headers: {
-//       'Access-Control-Allow-Origin': '*'
-//   }
-// })
-
-// const axios = require('axios')
-
 class App extends Component {
   constructor(props) {
     super(props)

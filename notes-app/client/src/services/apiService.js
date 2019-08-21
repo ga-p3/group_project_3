@@ -30,8 +30,7 @@ export const signup = async(data) => {
     const { data: { token, user } } = response
 
     console.log(response.data)
-    
-    localStorage.setItem('token', token)
+  
     return user
   } catch (e) {
     throw e
@@ -51,3 +50,4 @@ export const getProfile = async() => {
     throw e
   }
 }
+

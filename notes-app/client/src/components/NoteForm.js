@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
+import axios from 'axios'
 
-class NoteForm extends Component {
+class CreateNoteForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+      user: {}, 
+      folders: [],
+      note: [], 
       title: '',
       content: ''
     }
@@ -19,11 +21,12 @@ class NoteForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const data ={
+      const data ={ 
         title: this.state.title,
         content: this.state.content
       }
       // const apiResponse = Axios.post(`/user/${}/folders/${}/notes`)
+      // const submitNotes = await axios.post(`/user/:user_id/folders/:folder_id/notes`)
     } catch (error) {
       throw error
     }
@@ -45,4 +48,4 @@ class NoteForm extends Component {
   }
 }
 
-export default NoteForm
+export default CreateNoteForm
