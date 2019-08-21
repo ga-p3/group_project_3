@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './styles/App.css'
+// import './App.css'
 import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
@@ -24,7 +24,6 @@ class App extends Component {
     try {
       let folders
       const fetchedUsers = await getFolders()
-      console.log(fetchedUsers)
       if (fetchedUsers) {
         this.setState({
           isSignedIn: authService.isAuthenticated(),
@@ -35,7 +34,6 @@ class App extends Component {
         folders = user.folders
         return folders
       })
-      console.log(folders)
       }
       else {
         console.log('no token retrieved on App mount - OK if user not signed in')
@@ -114,6 +112,8 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
+              user={this.state.user}
+              folders={this.state.folders}
             />
 
             <Route
