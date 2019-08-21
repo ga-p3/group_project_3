@@ -15,7 +15,7 @@ export const login = async(data) => {
     const response = await api.post('/auth/login', data)
     const { data: { token, user } } = response
 
-    console.log(response.data)
+    // console.log(response.data)
     localStorage.setItem('userId', user.id)
     localStorage.setItem('token', token)
     return user
@@ -29,7 +29,7 @@ export const signup = async(data) => {
     const response = await api.post('/auth/signup', data)
     const { data: { token, user } } = response
 
-    console.log(response.data)
+    // console.log(response.data)
     
     localStorage.setItem('token', token)
     return user
