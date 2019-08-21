@@ -2,21 +2,21 @@ const express = require('express')
 const authRouter = express.Router()
 const { passport, jwtSign } = require('../auth/auth.js')
 
-authRouter.post('/signup', async(req, res, next) => {
-    passport.authenticate('signup', async(err, user) => {
-      try {
-        console.log('user from /signup', user);
+// authRouter.post('/signup', async(req, res, next) => {
+//     passport.authenticate('signup', async(err, user) => {
+//       try {
+//         console.log('user from /signup', user);
   
-        const { email, id } = user
-        const payload = { email, id }
-        const token = jwtSign(payload)
+//         const { email, id } = user
+//         const payload = { email, id }
+//         const token = jwtSign(payload)
   
-        return res.json({user, token, message: "User successfully created"})
-      } catch(error) {
-        return next(error)
-      }
-    })(req, res, next)
-})
+//         return res.json({user, token, message: "User successfully created"})
+//       } catch(error) {
+//         return next(error)
+//       }
+//     })(req, res, next)
+// })
 
 authRouter.post('/signup', async(req, res, next) => {
     passport.authenticate('signup', async(err, user, info = {}) => {
