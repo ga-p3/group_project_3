@@ -57,7 +57,12 @@ app.get('/user/:user_id', async (req, res) => {
         },
         include: [
           {
-            model: Folder
+            model: Folder,
+            include: [
+              {
+                model: Note
+              }
+            ]
           }
         ]
       })

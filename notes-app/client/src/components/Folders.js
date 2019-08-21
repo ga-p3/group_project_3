@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import CreateFolderForm from './FolderForm'
+import React from 'react'
+import { getFolders } from '../services/apiService'
+import authService from '../services/authService'
 
-class Folders extends Component {
-    constructor (props) {
+class Folders extends React.Component {
+    constructor(props) {
         super(props)
         this.state = {
-            user: {}, 
-            folders: [], 
-            notes: [], 
+            user: {},
+            folders: [],
+            title: '',
             showError: false
         }
     }
@@ -17,32 +17,45 @@ class Folders extends Component {
     //     await this.fetchFolders()
     // }
 
-    // fetchFolders = async () => {
-    //     try {
-    //         const folders = await this.props.api.get('/user/:user_id')
-    //         console.log(folders)
-    //         this.setState( { folders: folders.data } )
-    //     } catch (error) {
-    //         throw error 
-    //     }
-    // }
+    fetchFolders = async () => {
+        try {
+            let folders
+            const fetchedUsers = await getFolders()
+            if (fetchedUsers) {
+                fetchedUsers.map(user => {
+                    folders = user.folders
+                    return folders
+                })
+                this.setState({
+                    isSignedIn: authService.isAuthenticated(),
+                    user: fetchedUsers,
+                    folders: folders
+                })
+            }
+        } catch (error) {
+            throw error
+        }
+    }
 
-    renderFolders = () => {
-        if (this.state.folders.length) {
-            return this.state.folders.map((folder) => {
-                return (
+    renderFolders = (folders) => {
+        if (folders) {
+            return folders.map(folder=>{
+                return(
                     <div key={folder.id}>
-                        <h2>{folder.title}</h2>
+                        <h5>{folder.title}</h5>
                     </div>
                 )
             })
         }
     }
+
+
     render() {
-        return(
+        const { folders } = this.state
+        return (
             <div>
                 <h2>Folder List</h2>
-                {this.renderFolders()}
+                {this.renderFolders(folders)}
             </div>
         )
     }
