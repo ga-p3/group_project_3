@@ -70,6 +70,38 @@ const seedDb = async () => {
             title: 'Miscellaneous'
         })
 
+        const folder9 = await Folder.create({
+            title: 'Work',
+        })
+
+        const folder10 = await Folder.create({
+            title: 'School'
+        })
+
+        const folder11 = await Folder.create({
+            title: 'Health'
+        })
+
+        const folder12 = await Folder.create({
+            title: 'Miscellaneous'
+        })
+
+        const folder13 = await Folder.create({
+            title: 'Work',
+        })
+
+        const folder14 = await Folder.create({
+            title: 'School'
+        })
+
+        const folder15 = await Folder.create({
+            title: 'Health'
+        })
+
+        const folder16 = await Folder.create({
+            title: 'Miscellaneous'
+        })
+
         const note1 = await Note.create({
             title: 'help',
             content: 'help again'
@@ -91,23 +123,63 @@ const seedDb = async () => {
         })
 
         const note5 = await Note.create({
-            title: 'help',
-            content: 'help again'
+            title: 'jump',
+            content: 'jump again'
         })
 
         const note6 = await Note.create({
-            title: 'this not good',
-            content: 'really not good'
+            title: 'this not bad',
+            content: 'really not bad'
         })
 
         const note7 = await Note.create({
-            title: 'already',
-            content: 'are we already there'
+            title: 'not ready',
+            content: 'are we there yet'
         })
 
         const note8 = await Note.create({
-            title: 'finish',
-            content: 'can we finish'
+            title: 'leave',
+            content: 'can we leave'
+        })
+
+        const note9 = await Note.create({
+            title: 'work',
+            content: 'work again'
+        })
+
+        const note10 = await Note.create({
+            title: 'this really good',
+            content: 'really good'
+        })
+
+        const note11 = await Note.create({
+            title: 'finshed',
+            content: 'are we finsished yet'
+        })
+
+        const note12 = await Note.create({
+            title: 'have lunch',
+            content: 'can we have lunch'
+        })
+
+        const note13 = await Note.create({
+            title: 'cook',
+            content: 'cook again'
+        })
+
+        const note14 = await Note.create({
+            title: 'this is salty',
+            content: 'really salty'
+        })
+
+        const note15 = await Note.create({
+            title: 'going',
+            content: 'are we going there'
+        })
+
+        const note16 = await Note.create({
+            title: 'go home',
+            content: 'can we go home'
         })
         
         await folder1.setUser(user1)
@@ -118,15 +190,31 @@ const seedDb = async () => {
         await folder6.setUser(user2)
         await folder7.setUser(user2)
         await folder8.setUser(user2)
+        await folder9.setUser(user3)
+        await folder10.setUser(user3)
+        await folder11.setUser(user3)
+        await folder12.setUser(user3)
+        await folder13.setUser(user4)
+        await folder14.setUser(user4)
+        await folder15.setUser(user4)
+        await folder16.setUser(user4)
 
         await note1.setFolder(folder1)
         await note2.setFolder(folder1)
-        await note3.setFolder(folder1)
+        await note3.setFolder(folder2)
         await note4.setFolder(folder1)
         await note5.setFolder(folder5)
-        await note6.setFolder(folder5)
+        await note6.setFolder(folder2)
         await note7.setFolder(folder5)
         await note8.setFolder(folder5)
+        await note9.setFolder(folder16)
+        await note10.setFolder(folder1)
+        await note11.setFolder(folder10)
+        await note12.setFolder(folder7)
+        await note13.setFolder(folder3)
+        await note14.setFolder(folder6)
+        await note15.setFolder(folder3)
+        await note16.setFolder(folder4)
 
         await note1.setUser(user1)
         await note2.setUser(user1)
@@ -136,6 +224,14 @@ const seedDb = async () => {
         await note6.setUser(user2)
         await note7.setUser(user2)
         await note8.setUser(user2)
+        await note9.setUser(user3)
+        await note10.setUser(user3)
+        await note11.setUser(user3)
+        await note12.setUser(user3)
+        await note13.setUser(user4)
+        await note14.setUser(user4)
+        await note15.setUser(user4)
+        await note16.setUser(user4)
         
     }
     catch(err) {
