@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
+import '../../styles/Main.css'
 ​
 //components
 // import HomeLoggedIn from './components/HomeLoggedIn'

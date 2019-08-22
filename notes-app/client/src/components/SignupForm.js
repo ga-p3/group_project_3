@@ -60,7 +60,7 @@ class SignupForm extends Component {
         return (
             <div>
                 {errorMessage}
-                <form className='form' onSubmit={this.handleSubmitForm}>
+                <form className='signup-form' onSubmit={this.handleSubmitForm}>
                     <div>
                         <label>Name</label>
                         <input
@@ -90,7 +90,7 @@ class SignupForm extends Component {
                         />
                     </div>
 
-                    <button>Sign Up</button>
+                    <button id="signUpButton">Sign Up</button>
                 </form>
             </div>
         )

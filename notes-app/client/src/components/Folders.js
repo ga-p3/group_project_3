@@ -1,6 +1,7 @@
 import React from 'react'
 import { getFolders } from '../services/apiService'
 import authService from '../services/authService'
+import '../styles/Folder.css'
 
 class Folders extends React.Component {
     constructor(props) {
@@ -13,9 +14,9 @@ class Folders extends React.Component {
         }
     }
 
-    // async componentDidMount() {
-    //     await this.fetchFolders()
-    // }
+    async componentDidMount() {
+        await this.fetchFolders()
+    }
 
     fetchFolders = async () => {
         try {
@@ -42,7 +43,7 @@ class Folders extends React.Component {
             return folders.map(folder=>{
                 return(
                     <div key={folder.id}>
-                        <h5>{folder.title}</h5>
+                        <h4 className='folder-title'>{folder.title}</h4>
                     </div>
                 )
             })
@@ -52,6 +53,7 @@ class Folders extends React.Component {
 
     render() {
         const { folders } = this.state
+        console.log(folders)
         return (
             <div>
                 <h2>Folder List</h2>
