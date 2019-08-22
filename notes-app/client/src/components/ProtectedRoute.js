@@ -8,9 +8,13 @@ import Dashboard from './Dashboard'
  * https://tylermcginnis.com/react-router-protected-routes-authentication/
  */
 function ProtectedRoute ({ component: Component, ...rest }) {
+
   console.log('ProtectedRouteJs, props passed down:', {...rest})
   let {location} = {...rest} 
   console.log('ProtectedRoute prop history location',location)
+
+  //console.log('omfg more props', {...rest})
+
   return (
     <Route
       {...rest}

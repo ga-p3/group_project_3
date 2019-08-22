@@ -24,6 +24,7 @@ class CreateFolderForm extends Component {
         const userId = this.props.user[0].id
         console.log(userId)
         const { title } = this.state
+
         let newFolder = { title, userId }
         console.log('FolderForm, handleSubmit',newFolder)
         await makeFolders(newFolder)
@@ -33,6 +34,7 @@ class CreateFolderForm extends Component {
         if (getFolder) {
             console.log('TRYIN TO PUSH HISTORY', this.props.history)
 			// this.props.history.push('/dashboard')
+
         }
 
 
