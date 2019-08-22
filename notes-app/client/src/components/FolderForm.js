@@ -5,7 +5,8 @@ import Axios from 'axios';
 
 class CreateFolderForm extends Component {
     constructor(props) {
-        super(props) 
+        super(props)
+        this.props = props
         this.state = {
             user: {}, 
             folders: [], 
@@ -20,15 +21,18 @@ class CreateFolderForm extends Component {
     }
     handleSubmit = async (event) => { 
         event.preventDefault()
+        const userId = this.props.user[0].id
+        console.log(userId)
         const { title } = this.state
-        let newFolder = { title }
-        console.log(newFolder)
+        let newFolder = { title, userId }
+        console.log('FolderForm, handleSubmit',newFolder)
         await makeFolders(newFolder)
-        this.setState({created: true})
+        const folders = this.state.folders
+        this.setState({folders: [...folders], created: true})
         const getFolder = await getFolders()
         if (getFolder) {
             console.log('TRYIN TO PUSH HISTORY', this.props.history)
-			this.props.history.push('/dashboard')
+			// this.props.history.push('/dashboard')
         }
 
 
