@@ -59,7 +59,7 @@ class LoginForm extends Component {
     return (
       <div>
         { errorMessage }
-        <form className='form' onSubmit={this.handleSubmitForm}>
+        <form className='login-form' onSubmit={this.handleSubmitForm}>
           <div>
             <label>Email</label>
             <input
@@ -80,7 +80,7 @@ class LoginForm extends Component {
             />
           </div>
 
-          <button>Login</button>
+          <button id="logInButton">Login</button>
         </form>
       </div>
     )

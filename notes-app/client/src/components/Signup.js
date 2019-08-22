@@ -1,6 +1,7 @@
 import React from 'react'
 import SignupForm from './SignupForm'
 import { Link } from 'react-router-dom'
+import '../styles/Signup.css'
 
 function Signup (props) {
 
