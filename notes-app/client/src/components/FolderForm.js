@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { Redirect } from 'react-router-dom'
+import { makeFolders, getFolders } from '../services/apiService'
+import Axios from 'axios';
 
 class CreateFolderForm extends Component {
     constructor(props) {
@@ -8,36 +10,53 @@ class CreateFolderForm extends Component {
             user: {}, 
             folders: [], 
             title: '',
-            showError: false
+            showError: false, 
+            created: false
         }
     }
-
     handleChange = (event) => {
-        const { title, value } = event.target
-        this.setState( { [title]: value } )
+        const { name, value } = event.target
+        this.setState( { [name]: value } )
     }
-
     handleSubmit = async (event) => { 
         event.preventDefault()
-        try {
-            const data = {
-                title: this.state.title
-            }
-            const submitFolder = await axios.post(`'/user/:user_id/folders'`)
-            console.log(submitFolder)
-        } catch (error) {
-            throw error
+        const { title } = this.state
+        let newFolder = { title }
+        console.log(newFolder)
+        await makeFolders(newFolder)
+        this.setState({created: true})
+        const getFolder = await getFolders()
+        if (getFolder) {
+            console.log('TRYIN TO PUSH HISTORY', this.props.history)
+			this.props.history.push('/dashboard')
         }
+
+
+        
+        // await Axios.post('/folders', newFolder)
+        // this.setState( { created: true } )
     }
+    //     try {
+    //         const data = {
+    //             title: this.state.title
+    //         }
+    //         const submitFolder = await axios.post(`'/user/:user_id/folders'`)
+    //         console.log(submitFolder)
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
     render() {
+        // if (this.state.created) {
+        //     return <Redirect to="/dashboard" />
+        // }
         return(
             <div>
                 <form
-                    onChange={this.handleChange}
                     onSubmit={this.handleSubmit}
                 >
                     <label>Folder Name</label>
-                    <input type="text" name="title" value={this.state.title} />
+                    <input type="text" name="title" onChange={this.handleChange} value={this.state.title} />
                     <button type="submit">Create Folder</button>
                 </form>
             </div>

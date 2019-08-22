@@ -18,18 +18,27 @@ class CreateNoteForm extends Component {
     this.setState({ [title]: value })
   }
 
-  handleSubmit = async (e) => {
+  // handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const data ={ 
+  //       title: this.state.title,
+  //       content: this.state.content
+  //     }
+  //     // const apiResponse = Axios.post(`/user/${}/folders/${}/notes`)
+  //     // const submitNotes = await axios.post(`/user/:user_id/folders/:folder_id/notes`)
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
+
+  handleSubmit = (e) => {
     e.preventDefault()
-    try {
-      const data ={ 
-        title: this.state.title,
-        content: this.state.content
-      }
-      // const apiResponse = Axios.post(`/user/${}/folders/${}/notes`)
-      // const submitNotes = await axios.post(`/user/:user_id/folders/:folder_id/notes`)
-    } catch (error) {
-      throw error
-    }
+    let { title } = this.state
+    let newFolder = { title }
+    console.log(title)
+    // let data = await Axios.post('/icecreams', newIceCream)
+    // this.setState({created:true}
   }
 
   render() {
