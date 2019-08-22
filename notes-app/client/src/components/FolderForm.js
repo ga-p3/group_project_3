@@ -30,15 +30,15 @@ class CreateFolderForm extends Component {
         await makeFolders(newFolder)
         const folders = this.state.folders
         this.setState({folders: [...folders], created: true})
-        const getFolder = await getFolders()
-        if (getFolder) {
-            console.log('TRYIN TO PUSH HISTORY', this.props.history)
-			// this.props.history.push('/dashboard')
+        await this.props.fetchFolders()
+        // and he call it here by props
+        //
 
-        }
-
-
-        
+        // const getFolder = await getFolders()
+        // if (getFolder) {
+        //     console.log('TRYIN TO PUSH HISTORY', this.props.history)
+		// 	// this.props.history.push('/dashboard')
+        // }
         // await Axios.post('/folders', newFolder)
         // this.setState( { created: true } )
     }
