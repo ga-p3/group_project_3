@@ -3,7 +3,6 @@ const authService = {
       const token = localStorage.getItem('token')
   
       if (!token) {
-        console.log('nothing')
         return false
       }
   

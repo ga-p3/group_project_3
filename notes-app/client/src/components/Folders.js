@@ -1,6 +1,9 @@
 import React from 'react'
 import { getFolders } from '../services/apiService'
 import authService from '../services/authService'
+import { Router, Link } from 'react-router-dom'
+import CreateFolderForm from './FolderForm'
+import Notes from './Notes';
 
 class Folders extends React.Component {
     constructor(props) {
@@ -8,14 +11,14 @@ class Folders extends React.Component {
         this.state = {
             user: {},
             folders: [],
+            notes: [],
             title: '',
             showError: false
         }
     }
-
-    // async componentDidMount() {
-    //     await this.fetchFolders()
-    // }
+    async componentDidMount() {
+        await this.fetchFolders()
+    }
 
     fetchFolders = async () => {
         try {
@@ -36,29 +39,28 @@ class Folders extends React.Component {
             throw error
         }
     }
-
     renderFolders = (folders) => {
         if (folders) {
             return folders.map(folder=>{
                 return(
                     <div key={folder.id}>
-                        <h5>{folder.title}</h5>
+                        <Link to="/notes"><h5>{folder.title}</h5></Link>
                     </div>
                 )
             })
         }
     }
-
-
     render() {
         const { folders } = this.state
         return (
             <div>
                 <h2>Folder List</h2>
                 {this.renderFolders(folders)}
+                {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
+                <CreateFolderForm />
+           />
             </div>
         )
     }
 }
-
 export default Folders 
