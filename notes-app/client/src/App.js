@@ -90,7 +90,7 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
-              <Link to='/app/profile'>Profile</Link>
+              <Link to='/dashboard'>jhordan can't code</Link>
 
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
