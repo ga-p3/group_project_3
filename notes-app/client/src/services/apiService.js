@@ -67,7 +67,11 @@ export const makeFolders = async (newFolder) => {
     const response = await api.post('/folders', newFolder)
     let { data } = response
     const id = localStorage.getItem('userId')
-    console.log('YO THIS IS DATA', data)
+
+    //console.log('apiService, makeFolders, data:', data)
+
+    //console.log('YO THIS IS DATA', data)
+
     data.userId = id
     return data
   } catch (error) {
