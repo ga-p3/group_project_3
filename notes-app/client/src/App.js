@@ -22,10 +22,13 @@ class App extends Component {
 
 
   async componentDidMount () {
-    // fetch user data on page refresh
+    await this.fetchFolders()
+  }
+  
+  async fetchFolders () {
     try {
       const fetchedUser = await getFolders()
-
+  
       this.setState({
         isSignedIn: authService.isAuthenticated(),
         user: fetchedUser
