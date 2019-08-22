@@ -15,28 +15,28 @@ class Notes extends Component {
         }
     }
     async componentDidMount() {
-        await this.fetchNotes()
+        // await this.fetchNotes()
     }
 
-    fetchNotes = async () => {
-        try {
-            let notes 
-            const fetchedUsers = await getNotes()
-            if(fetchedUsers) {
-                fetchedUsers.map(user => {
-                    notes = user.notes
-                    return notes
-                })
-                this.setState({
-                    isSignedIn: authService.isAuthenticated(), 
-                    user: fetchedUsers, 
-                    notes: notes
-                })
-            }
-        } catch (error) {
-            throw error
-        }
-    }
+    // fetchNotes = async () => {
+    //     try {
+    //         let notes 
+    //         const fetchedUsers = await getNotes()
+    //         if(fetchedUsers) {
+    //             fetchedUsers.map(user => {
+    //                 notes = user.notes
+    //                 return notes
+    //             })
+    //             this.setState({
+    //                 isSignedIn: authService.isAuthenticated(), 
+    //                 user: fetchedUsers, 
+    //                 notes: notes
+    //             })
+    //         }
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
 
     renderNotes = (notes) => {
         if (notes) {
