@@ -48,3 +48,10 @@ export const getFolders = async() => {
   }
 }
 
+export const makeFolders = async (newFolder) => {
+  try {
+    const response = await api.post('/folders', newFolder)
+  } catch (error) {
+    console.log('ERROR SENDING API REQ TO API.POST')
+  }
+}

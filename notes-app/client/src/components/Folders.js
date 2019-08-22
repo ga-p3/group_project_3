@@ -13,9 +13,9 @@ class Folders extends React.Component {
         }
     }
 
-    // async componentDidMount() {
-    //     await this.fetchFolders()
-    // }
+    async componentDidMount() {
+        await this.fetchFolders()
+    }
 
     fetchFolders = async () => {
         try {
