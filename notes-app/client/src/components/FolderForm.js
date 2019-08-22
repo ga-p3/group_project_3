@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { Redirect } from 'react-router-dom'
+import Axios from 'axios';
 
 class CreateFolderForm extends Component {
     constructor(props) {
@@ -8,28 +9,36 @@ class CreateFolderForm extends Component {
             user: {}, 
             folders: [], 
             title: '',
-            showError: false
+            showError: false, 
+            created: false
         }
     }
-
     handleChange = (event) => {
-        const { title, value } = event.target
-        this.setState( { [title]: value } )
+        const { name, value } = event.target
+        this.setState( { [name]: value } )
     }
-
     handleSubmit = async (event) => { 
         event.preventDefault()
-        try {
-            const data = {
-                title: this.state.title
-            }
-            const submitFolder = await axios.post(`'/user/:user_id/folders'`)
-            console.log(submitFolder)
-        } catch (error) {
-            throw error
-        }
+        const { title } = this.state
+        let newFolder = { title }
+
+        await Axios.post('/user/:user_id/folders', newFolder)
+        this.setState( { created: true } )
     }
+    //     try {
+    //         const data = {
+    //             title: this.state.title
+    //         }
+    //         const submitFolder = await axios.post(`'/user/:user_id/folders'`)
+    //         console.log(submitFolder)
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
     render() {
+        if (this.state.created) {
+            return <Redirect to="/user/:user_id/folders" />
+        }
         return(
             <div>
                 <form
