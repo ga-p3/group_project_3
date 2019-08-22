@@ -1,6 +1,9 @@
 import React from 'react'
 import { getFolders } from '../services/apiService'
 import authService from '../services/authService'
+import { Router, Link } from 'react-router-dom'
+import CreateFolderForm from './FolderForm'
+import Notes from './Notes';
 import '../styles/Folder.css'
 
 class Folders extends React.Component {
@@ -9,6 +12,7 @@ class Folders extends React.Component {
         this.state = {
             user: {},
             folders: [],
+            notes: [],
             title: '',
             showError: false
         }
@@ -37,20 +41,17 @@ class Folders extends React.Component {
             throw error
         }
     }
-
     renderFolders = (folders) => {
         if (folders) {
             return folders.map(folder=>{
                 return(
                     <div key={folder.id}>
-                        <h4 className='folder-title'>{folder.title}</h4>
+                        <Link to="/notes"><h5>{folder.title}</h5></Link>
                     </div>
                 )
             })
         }
     }
-
-
     render() {
         const { folders } = this.state
         console.log(folders)
@@ -58,9 +59,11 @@ class Folders extends React.Component {
             <div>
                 <h2>Folder List</h2>
                 {this.renderFolders(folders)}
+                {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
+                <CreateFolderForm />
+           />
             </div>
         )
     }
 }
-
 export default Folders 
