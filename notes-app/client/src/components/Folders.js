@@ -1,51 +1,69 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React from 'react'
+import { getFolders } from '../services/apiService'
+import authService from '../services/authService'
+import { Router, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
+import Notes from './Notes';
+import '../styles/Folder.css'
 
-class Folders extends Component {
-    constructor (props) {
+class Folders extends React.Component {
+    constructor(props) {
         super(props)
         this.state = {
-            user: {}, 
-            folders: [], 
-            notes: [], 
+            user: {},
+            folders: [],
+            notes: [],
+            title: '',
             showError: false
         }
     }
 
-    // async componentDidMount() {
-    //     await this.fetchFolders()
-    // }
+    async componentDidMount() {
+        await this.fetchFolders()
+    }
 
-    // fetchFolders = async () => {
-    //     try {
-    //         const folders = await this.props.api.get('/user/:user_id')
-    //         console.log(folders)
-    //         this.setState( { folders: folders.data } )
-    //     } catch (error) {
-    //         throw error 
-    //     }
-    // }
-
-    renderFolders = () => {
-        if (this.state.folders.length) {
-            return this.state.folders.map((folder) => {
-                return (
+    fetchFolders = async () => {
+        try {
+            let folders
+            const fetchedUsers = await getFolders()
+            if (fetchedUsers) {
+                fetchedUsers.map(user => {
+                    folders = user.folders
+                    return folders
+                })
+                this.setState({
+                    isSignedIn: authService.isAuthenticated(),
+                    user: fetchedUsers,
+                    folders: folders
+                })
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+    renderFolders = (folders) => {
+        if (folders) {
+            return folders.map(folder=>{
+                return(
                     <div key={folder.id}>
-                        <h2>{folder.title}</h2>
+                        <Link to="/notes"><h5>{folder.title}</h5></Link>
                     </div>
                 )
             })
         }
     }
     render() {
-        return(
+        const { folders } = this.state
+        console.log(folders)
+        return (
             <div>
                 <h2>Folder List</h2>
-                {this.renderFolders()}
+                {this.renderFolders(folders)}
+                {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
+                <CreateFolderForm />
+           />
             </div>
         )
     }
 }
-
 export default Folders 

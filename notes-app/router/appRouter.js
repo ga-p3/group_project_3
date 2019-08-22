@@ -13,7 +13,8 @@ appRouter.get('/:user_id', passport.authenticate('jwt', { session: false }),
             },
             include: [
               {
-                model: Folder
+                model: Folder,
+                model: Note
               }
             ]
           })

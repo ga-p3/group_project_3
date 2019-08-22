@@ -5,10 +5,10 @@ import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { Route, Link, Switch } from 'react-router-dom'
-import { login, getFolders, signup } from './services/apiService'
+import { login, signup } from './services/apiService'
 import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
-import axios from 'axios'
+// import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
@@ -20,31 +20,29 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
-    try {
-      let folders
-      const fetchedUsers = await getFolders()
-      console.log(fetchedUsers)
-      if (fetchedUsers) {
-        this.setState({
-          isSignedIn: authService.isAuthenticated(),
-          user: fetchedUsers,
-          folders: fetchedUsers.folders
-        })
-      fetchedUsers.map(user=>{
-        folders = user.folders
-        return folders
-      })
-      console.log(folders)
-      }
-      else {
-        console.log('no token retrieved on App mount - OK if user not signed in')
-      }
-    } catch (e) {
-      console.log('Issue fetching token on App componentDidMount')
-      throw e
-    }
-  }
+  // async componentDidMount() {
+  //   try {
+  //     let folders
+  //     const fetchedUsers = await getFolders()
+  //     if (fetchedUsers) {
+  //       this.setState({
+  //         isSignedIn: authService.isAuthenticated(),
+  //         user: fetchedUsers,
+  //         folders: fetchedUsers.folders
+  //       })
+  //     fetchedUsers.map(user=>{
+  //       folders = user.folders
+  //       return folders
+  //     })
+  //     }
+  //     else {
+  //       console.log('no token retrieved on App mount - OK if user not signed in')
+  //     }
+  //   } catch (e) {
+  //     console.log('Issue fetching token on App componentDidMount')
+  //     throw e
+  //   }
+  // }
 
   loginUser = async (credentials) => {
     try {
@@ -114,6 +112,8 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
+              user={this.state.user}
+              folders={this.state.folders}
             />
 
             <Route

@@ -3,13 +3,14 @@
     flex-direction: column;
     align-content: space-around;
     border: 5px solid black;
-    background-color: rgb(175, 218, 232);
-    height: 140px;
-    width: 120px;
+    background-color: lightgoldenrodyellow;
+    height: auto;
+    width: auto;
 }
 
 label, input, button {
     font-size: 14px;
+    margin: 10px;
 }
 
 input {
@@ -18,6 +19,9 @@ input {
 
 button {
     padding: 15px;
-    background-color: lightgreen;
     cursor: pointer;
+}
+
+#signUpButton {
+    background-color: lightblue;
 }
