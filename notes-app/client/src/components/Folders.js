@@ -4,6 +4,7 @@ import authService from '../services/authService'
 import { Router, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
 import Notes from './Notes';
+import '../styles/Folder.css'
 
 class Folders extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class Folders extends React.Component {
             showError: false
         }
     }
+
     async componentDidMount() {
         await this.fetchFolders()
     }
@@ -52,6 +54,7 @@ class Folders extends React.Component {
     }
     render() {
         const { folders } = this.state
+        console.log(folders)
         return (
             <div>
                 <h2>Folder List</h2>

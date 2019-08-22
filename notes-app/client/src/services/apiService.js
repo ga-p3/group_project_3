@@ -60,3 +60,12 @@ export const getNotes = async() => {
     throw error
   }
 }
+
+
+export const makeFolders = async (newFolder) => {
+  try {
+    const response = await api.post('/folders', newFolder)
+  } catch (error) {
+    console.log('ERROR SENDING API REQ TO API.POST')
+  }
+}

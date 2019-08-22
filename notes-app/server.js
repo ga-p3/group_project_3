@@ -72,6 +72,17 @@ app.get('/user/:user_id', async (req, res) => {
   }
 });
 
+app.post('/folders', async (req, res) => {
+  try {
+    const newFolder = await Folder.create(req.body)
+    res.send(newFolder)
+  } catch (error) {
+    console.log('ERROR MAKING FOLDERS')
+    throw error
+  }
+})
+
+
 // gets all notes from a specific folder-- WORKS
 app.get('/user/:user_id/folders/:folder_id', async (req, res) => {
   try {
