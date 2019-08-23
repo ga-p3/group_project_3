@@ -109,7 +109,7 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
-              <Link to='/dashboard'>jhordan can't code</Link>
+              <Link to='/dashboard'>{this.state.user.name}</Link>
 
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
