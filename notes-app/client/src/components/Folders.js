@@ -53,8 +53,9 @@ class Folders extends React.Component {
         }
     }
     render() {
-        const { folders } = this.state
-        console.log(folders)
+        const { folders, user } = this.state
+        // console.log('foldersJs this.state.folders',folders)
+        // console.log('folderJS this.state.users', user)
         return (
             <div className="folder-list">
                 <h2>Folder List</h2>
@@ -62,7 +63,13 @@ class Folders extends React.Component {
                     {this.renderFolders(folders)}
                 </div>
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
-                <CreateFolderForm />
+
+
+
+                <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
+                {/* dave added fetchfolder lik i told you so */}
+
+           
             </div>
         )
     }
