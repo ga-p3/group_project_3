@@ -51,7 +51,7 @@ export const getProfile = async() => {
 // export const getNotes = async() => {
 //   try {
 //     const iduser = localStorage.getItem('userId')
-//     // const idfolder = localStorage.getItem('folderId')
+//     const idfolder = localStorage.getItem('folderId')
 //     const response = await api.get(`/user/${iduser}/folders/${idfolder}`)
 //     let { data } = response 
 //     return data 
@@ -74,11 +74,12 @@ export const makeFolders = async (newFolder) => {
   }
 }
 
-export const findNotes = async () => {
+export const findNotes = async (notesId) => {
   try {
-    const id = localStorage.getItem('userId')
+    const id = notesId
     const response = await api.get(`/user/${id}/notes`)
     let { data } = response
+    console.log(data)
     return data
   } catch (error) {
     console.log('error in apiservice findnotes')

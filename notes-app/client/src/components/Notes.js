@@ -8,10 +8,8 @@ import { checkServerIdentity } from 'tls';
 class Notes extends Component {
     constructor(props) {
         super(props) 
-        this.props = props
         this.state = {
-            user: {}, 
-            isSignedIn: false,
+            user: props.user, 
             folders: [], 
             notes: [], 
             title: '', 
@@ -22,50 +20,71 @@ class Notes extends Component {
         await this.fetchNotes()
     }
 
-    fetchNotes = async () => {
-        try {
-            let notes 
-            const fetchedUsers = await getProfile()
-            console.log('this is fetched users',fetchedUsers)
-            if(fetchedUsers) {
-                fetchedUsers.map(user => {
-                    notes = user.folders.notes
-                    return notes
-                })
-                this.setState({
-                    isSignedIn: authService.isAuthenticated(), 
-                    user: fetchedUsers, 
-                    notes: notes
-                })
-            }
-        } catch (error) {
-            throw error
-        }
-    }
+    // fetchNotes = async () => {
+    //     try {
+    //         let notes 
+    //         const fetchedUsers = await getProfile()
+    //         console.log('this is fetched users',fetchedUsers)
+    //         if(fetchedUsers) {
+    //             fetchedUsers.map(user => {
+    //                 notes = user.folders.notes
+    //                 return notes
+    //             })
+    //             this.setState({
+    //                 isSignedIn: authService.isAuthenticated(), 
+    //                 user: fetchedUsers, 
+    //                 notes: notes
+    //             })
+    //         }
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
 
-    renderNotes = (notes) => {
-        if (notes) {
-            return notes.map(note => {
+
+  async fetchNotes() {
+    try {
+        const id = await this.state.user[0].id
+      const findAllNotes = await findNotes(id)
+      // put notes in state
+      this.setState({
+        isSignedIn: authService.isAuthenticated(),
+        notes: findAllNotes
+      })
+    //   console.log('notes from user', findAllNotes)
+    } catch (error) {
+      console.log('help notes')
+    }
+  }
+
+
+    renderNotes = async () => {
+        try {
+            
+            await console.log('NJ RN',this.state.notes)
+            await this.state.notes.map(note=>{
                 return (
-                    <div key={note.id}>
-                        <Link className="note" to="/specificNote"><h4>{note.title}</h4>
-                        <h5>{note.content}</h5></Link>
+                    <div>
+                        <h5>{note.title}</h5>
+                        <h6>{note.content}</h6>
                     </div>
                 )
             })
+        } catch (error) {
+            console.log('NJ RN')
         }
     }
 
-    handleClick = async (event) => {
-        event.preventDefault()
-        const folderId = await this.props.folder[0].id
-        const { title, content } = this.state 
-        let showNotes = { title, content, folderId } 
-        const notes = await findNotes(showNotes)
-        console.log(notes)
-        this.setState({ notes: notes })
-        await this.props.history.push('/folder/${folder.id}')
-    }
+    // handleClick = async (event) => {
+    //     event.preventDefault()
+    //     const folderId = await this.props.folder[0].id
+    //     const { title, content } = this.state 
+    //     let showNotes = { title, content, folderId } 
+    //     const notes = await findNotes(showNotes)
+    //     console.log(notes)
+    //     this.setState({ notes: notes })
+    //     await this.props.history.push('/folder/${folder.id}')
+    // }
 
     render() {
         const { notes, user } = this.state
@@ -73,9 +92,9 @@ class Notes extends Component {
             <div className="note-list" onClick={this.handleClick}>
                     <h2>Note List</h2>
                 <div className="note-container">
-                    {this.state.notes}
+                    {/* {this.state.notes} */}
                 </div>
-                <CreateNoteForm user={user} fetchNotes={this.fetchNotes} />
+                {/* <CreateNoteForm user={user} fetchNotes={this.fetchNotes} /> */}
             </div>
         )
     }
