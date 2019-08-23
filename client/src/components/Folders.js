@@ -4,12 +4,12 @@ import authService from '../services/authService'
 import { Route, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
 import Notes from './Notes';
-<<<<<<< HEAD:client/src/components/Folders.js
+
 import Axios from 'axios'
 import '../styles/FolderList.css'
-=======
+
 import '../styles/Folders.css'
->>>>>>> develop:notes-app/client/src/components/Folders.js
+
 
 class Folders extends React.Component {
     constructor(props) {
@@ -63,7 +63,6 @@ class Folders extends React.Component {
 
     renderFolders = (folders) => {
         if (folders) {
-<<<<<<< HEAD:client/src/components/Folders.js
             return folders.map(folder => {
                 return (
                     <div key={folder.id}>
@@ -72,13 +71,6 @@ class Folders extends React.Component {
                             <h5>{folder.title}</h5>
                             <button onClick={this.handleDelete} value={folder.id}>Delete</button>
                         </Link>
-
-=======
-            return folders.map(folder=>{
-                return(
-                    <div className="folder" key={folder.id}>
-                        <Link to="/notes"><h5>{folder.title}</h5></Link>
->>>>>>> develop:notes-app/client/src/components/Folders.js
                     </div>
                 )
             })
@@ -90,23 +82,17 @@ class Folders extends React.Component {
         const { folders, user } = this.state
         // console.log('foldersJs this.state.folders',folders)
         // console.log('folderJS this.state.users', user)
-<<<<<<< HEAD:client/src/components/Folders.js
 
-        console.log('user',user)
-
-=======
-        // console.log('user',user)
->>>>>>> develop:notes-app/client/src/components/Folders.js
         return (
             <div className="folder-list">
                 <h2>Folder List</h2>
                 <div className="folder-container">
                     {this.renderFolders(folders)}
-                    
+
                 </div>
 
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} /> */}
-                <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
+                <CreateFolderForm user={user} fetchFolders={this.fetchFolders} />
 
             </div>
         )

@@ -166,19 +166,17 @@ class App extends Component {
             <Route // Why can't this be a protected route
               path='/folder/:folder_id'
               user={user}
-<<<<<<< HEAD:client/src/App.js
               component={Notes}
 
-=======
-              render={(props) => (
-                <Notes
-                  {...props}
-                  key={Math.random() * 4}
-                  user={user}
-                  signedIn={this.fetchFolders}
-                />
-              )}
->>>>>>> develop:notes-app/client/src/App.js
+              // render={(props) => (
+              //   <Notes
+              //     {...props}
+              //     key={Math.random() * 4}
+              //     user={user}
+              //     signedIn={this.fetchFolders}
+              //   />
+              // )}
+
             />
             <Route
               

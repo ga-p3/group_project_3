@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import CreateNoteForm from './NoteForm';
-import { getProfile, getFolders, getNotes, findNotes, deleteNote } from '../services/apiService';
-import authService from '../services/authService';
-<<<<<<< HEAD:client/src/components/Notes.js
-import { Router, Link } from 'react-router-dom'; 
-// import { checkServerIdentity } from 'tls';
-import Axios from 'axios'
-=======
+import { getProfile, findNotes, deleteNote } from '../services/apiService';
+import authService from '../services/authService'; 
 import { Router, Link } from 'react-router-dom';
-import { checkServerIdentity } from 'tls';
->>>>>>> develop:notes-app/client/src/components/Notes.js
 
 class Notes extends Component {
     constructor(props) {
         super(props)
         this.state = {
-<<<<<<< HEAD:client/src/components/Notes.js
             user: {}, 
             isSignedIn: false,
             folders: [], 
@@ -23,14 +15,6 @@ class Notes extends Component {
             title: '', 
             content: '',
             delete: false
-=======
-            user: props.user,
-            isSignedIn: authService.isAuthenticated(),
-            folders: [],
-            notes: [],
-            title: '',
-            content: ''
->>>>>>> develop:notes-app/client/src/components/Notes.js
         }
     }
     async componentDidMount() {
@@ -85,12 +69,8 @@ class Notes extends Component {
                 return (
                     <div key={note.id}>
                         <Link className="note" to="/specificNote"><h4>{note.title}</h4>
-<<<<<<< HEAD:client/src/components/Notes.js
                         <h5>{note.content}</h5></Link>
                         <button onClick={this.handleDelete} value={note.id} >Delete</button>
-=======
-                            <h5>{note.content}</h5></Link>
->>>>>>> develop:notes-app/client/src/components/Notes.js
                     </div>
                 )
             })
