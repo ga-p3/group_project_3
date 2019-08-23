@@ -56,7 +56,7 @@ class Folders extends React.Component {
         const { folders, user } = this.state
         // console.log('foldersJs this.state.folders',folders)
         // console.log('folderJS this.state.users', user)
-        console.log('user',user)
+        // console.log('user',user)
         return (
             <div className="folder-list">
                 <h2>Folder List</h2>
