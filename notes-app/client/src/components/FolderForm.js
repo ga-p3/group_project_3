@@ -31,31 +31,8 @@ class CreateFolderForm extends Component {
         const folders = this.state.folders
         this.setState({folders: [...folders], created: true})
         await this.props.fetchFolders()
-        // and he call it here by props
-        //
-
-        // const getFolder = await getFolders()
-        // if (getFolder) {
-        //     console.log('TRYIN TO PUSH HISTORY', this.props.history)
-		// 	// this.props.history.push('/dashboard')
-        // }
-        // await Axios.post('/folders', newFolder)
-        // this.setState( { created: true } )
     }
-    //     try {
-    //         const data = {
-    //             title: this.state.title
-    //         }
-    //         const submitFolder = await axios.post(`'/user/:user_id/folders'`)
-    //         console.log(submitFolder)
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
     render() {
-        // if (this.state.created) {
-        //     return <Redirect to="/dashboard" />
-        // }
         return(
             <div>
                 <form

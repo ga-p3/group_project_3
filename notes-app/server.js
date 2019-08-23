@@ -72,6 +72,32 @@ app.get('/user/:user_id', async (req, res) => {
   }
 });
 
+
+
+
+
+app.get('/user/:user_id/notes', async (req, res) => {
+  try {
+    const id = req.params.user_id;
+    // const findUser = await Folder.findAll({ where: { userId: id } });
+    const findNotes = await Note.findAll(
+      {
+        where: {
+          userId: id
+        }
+      })
+    res.send(findNotes)
+  } catch (error) {
+    throw error
+  }
+});
+
+
+
+
+
+
+
 app.post('/folders', async (req, res) => {
   try {
     const newFolder = await Folder.create(req.body)
@@ -303,12 +329,6 @@ app.delete('/user/:user_id/folders/:folder_id', async (req, res) => {
     throw error
   }
 });
-
-// In production, any request that doesn't match a previous route
-// should send the front-end application, which will handle the route.
-// if (process.env.NODE_ENV == "production") {
-//   app.use('*', (req, res) => res.sendFile(path.join(__dirname, './client/build', "index.html")));
-// }
 
 app.use((err, req, res, next) => {
   res.status(500).json({

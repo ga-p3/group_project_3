@@ -4,10 +4,12 @@ import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Notes from './components/Notes'
 import { Route, Link, Switch } from 'react-router-dom'
-import { login, signup, getFolders } from './services/apiService'
+import { login, signup, getProfile, findNotes } from './services/apiService'
 import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
+import Axios from 'axios';
 // import axios from 'axios'
 
 class App extends Component {
@@ -16,19 +18,21 @@ class App extends Component {
     this.state = {
       isSignedIn: false,
       user: {},
-      folders: {}
+      folders: {},
+      notes: {}
     }
   }
 
 
-  async componentDidMount () {
+  async componentDidMount() {
     await this.fetchFolders()
+    await this.fetchNotes()
   }
-  
-  async fetchFolders () {
+
+  async fetchFolders() {
     try {
-      const fetchedUser = await getFolders()
-  
+      const fetchedUser = await getProfile()
+
       this.setState({
         isSignedIn: authService.isAuthenticated(),
         user: fetchedUser
@@ -36,6 +40,15 @@ class App extends Component {
     } catch (e) {
       // throw e
       console.log('Issue fetching token')
+    }
+  }
+
+  async fetchNotes() {
+    try {
+      const findAllNotes = await findNotes()
+      console.log('notes from user',findAllNotes)
+    } catch (error) {
+      console.log('help notes')
     }
   }
 
@@ -99,6 +112,7 @@ class App extends Component {
 
   render() {
     const { isSignedIn, user } = this.state
+    console.log('yo this user',user)
 
     return (
       <div className='App'>
@@ -109,7 +123,7 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
-              <Link to='/dashboard'>jhordan can't code</Link>
+              <Link to='/dashboard'>Dashboard</Link>
 
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
@@ -131,7 +145,13 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
-              user={this.state.user}
+              folders={this.state.folders}
+            />
+
+            <ProtectedRoute
+              path='/notes'
+              user={user}
+              component={Notes}
               folders={this.state.folders}
             />
 
@@ -158,8 +178,8 @@ class App extends Component {
                   />
               }
             />
-            </Switch>
-          </main>
+          </Switch>
+        </main>
       </div>
     )
   }
