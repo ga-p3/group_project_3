@@ -4,6 +4,7 @@ import authService from '../services/authService'
 import { Router, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
 import Notes from './Notes';
+import Axios from 'axios'
 import '../styles/FolderList.css'
 
 class Folders extends React.Component {
@@ -14,7 +15,8 @@ class Folders extends React.Component {
             folders: [],
             notes: [],
             title: '',
-            showError: false
+            showError: false,
+            delete: false
         }
     }
 
@@ -41,17 +43,28 @@ class Folders extends React.Component {
             throw error
         }
     }
+    handleDelete = async (event) => {
+        event.preventDefault()
+        let id = this.props.match.params.id
+        console.log(id)
+        await Axios.delete(`/folders/${id}`)
+        this.setState({ deleted: true })
+    }
     renderFolders = (folders) => {
         if (folders) {
-            return folders.map(folder=>{
-                return(
+            return folders.map(folder => {
+                return (
                     <div key={folder.id}>
                         <Link className="folder" to="/notes"><h5>{folder.title}</h5></Link>
+                        {/* <input type='submit' /> */}
+                        <button onClick={this.handleDelete} >Delete</button>
                     </div>
                 )
             })
         }
     }
+
+
     render() {
         const { folders, user } = this.state
         // console.log('foldersJs this.state.folders',folders)
@@ -64,12 +77,13 @@ class Folders extends React.Component {
                     {this.renderFolders(folders)}
                 </div>
 
+
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
 
-                <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
+                <CreateFolderForm user={user} fetchFolders={this.fetchFolders} />
                 {/* dave added fetchfolder lik i told you so */}
 
-           
+
             </div>
         )
     }
