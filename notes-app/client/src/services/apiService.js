@@ -36,7 +36,7 @@ export const signup = async(data) => {
   }
 }
 
-export const getFolders = async() => {
+export const getProfile = async() => {
   try {
     const id = localStorage.getItem('userId')
     const response = await api.get(`/user/${id}`)
@@ -51,7 +51,7 @@ export const getFolders = async() => {
 // export const getNotes = async() => {
 //   try {
 //     const iduser = localStorage.getItem('userId')
-//     const idfolder = localStorage.getItem('folderId')
+//     // const idfolder = localStorage.getItem('folderId')
 //     const response = await api.get(`/user/${iduser}/folders/${idfolder}`)
 //     let { data } = response 
 //     return data 
@@ -67,14 +67,28 @@ export const makeFolders = async (newFolder) => {
     const response = await api.post('/folders', newFolder)
     let { data } = response
     const id = localStorage.getItem('userId')
-
-    //console.log('apiService, makeFolders, data:', data)
-
-    //console.log('YO THIS IS DATA', data)
-
     data.userId = id
     return data
   } catch (error) {
     console.log('ERROR SENDING API REQ TO API.POST')
   }
 }
+
+export const findNotes = async () => {
+  try {
+    const id = localStorage.getItem('userId')
+    const response = await api.get(`/user/${id}/notes`)
+    let { data } = response
+    return data
+  } catch (error) {
+    console.log('error in apiservice findnotes')
+  }
+}
+
+// export const makeNotes = async (newNote) => {
+//   try {
+//     const 
+//   } catch (error) {
+//     console.log('Error sending API to REQ to API.POST to Create Note')
+//   }
+// }

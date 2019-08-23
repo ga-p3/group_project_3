@@ -1,5 +1,5 @@
 import React from 'react'
-import { getFolders } from '../services/apiService'
+import { getProfile } from '../services/apiService'
 import authService from '../services/authService'
 import { Router, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
@@ -25,7 +25,7 @@ class Folders extends React.Component {
     fetchFolders = async () => {
         try {
             let folders
-            const fetchedUsers = await getFolders()
+            const fetchedUsers = await getProfile()
             if (fetchedUsers) {
                 fetchedUsers.map(user => {
                     folders = user.folders
@@ -56,12 +56,21 @@ class Folders extends React.Component {
         const { folders, user } = this.state
         // console.log('foldersJs this.state.folders',folders)
         // console.log('folderJS this.state.users', user)
+<<<<<<< HEAD
+        console.log('user',user)
+=======
+>>>>>>> d1149cbfb0dbc0cd334aab35f61481c72c735e2f
         return (
             <div className="folder-list">
                 <h2>Folder List</h2>
                 <div className="folder-container">
                     {this.renderFolders(folders)}
                 </div>
+<<<<<<< HEAD
+                {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} /> */}
+                <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
+                {/* dave added fetchfolder lik i told you so */}
+=======
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
 
 
@@ -70,6 +79,7 @@ class Folders extends React.Component {
                 {/* dave added fetchfolder lik i told you so */}
 
            
+>>>>>>> d1149cbfb0dbc0cd334aab35f61481c72c735e2f
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CreateNoteForm from './NoteForm'
 // import { getNotes } from '../../services/apiService';
-import { getNotes } from '../services/apiService';
+import { getProfile, getFolders, getNotes } from '../services/apiService';
 // import authService from '../../services/authService';
 import authService from '../services/authService';
 
@@ -12,31 +12,34 @@ class Notes extends Component {
             user: {}, 
             folders: [], 
             notes: [], 
+            title: '', 
+            content: ''
         }
     }
     async componentDidMount() {
-        // await this.fetchNotes()
+        await this.fetchNotes()
     }
 
-    // fetchNotes = async () => {
-    //     try {
-    //         let notes 
-    //         const fetchedUsers = await getNotes()
-    //         if(fetchedUsers) {
-    //             fetchedUsers.map(user => {
-    //                 notes = user.notes
-    //                 return notes
-    //             })
-    //             this.setState({
-    //                 isSignedIn: authService.isAuthenticated(), 
-    //                 user: fetchedUsers, 
-    //                 notes: notes
-    //             })
-    //         }
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
+    fetchNotes = async () => {
+        try {
+            let notes 
+            const fetchedUsers = await getProfile()
+            // console.log(fetchedUsers)
+            if(fetchedUsers) {
+                fetchedUsers.map(user => {
+                    notes = user.folders.notes
+                    return notes
+                })
+                this.setState({
+                    isSignedIn: authService.isAuthenticated(), 
+                    user: fetchedUsers, 
+                    notes: notes
+                })
+            }
+        } catch (error) {
+            throw error
+        }
+    }
 
     renderNotes = (notes) => {
         if (notes) {
