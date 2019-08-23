@@ -12,7 +12,7 @@ function Signup (props) {
 
       <SignupForm {...props} />
       <h4>Existing Users Log In Below</h4>
-      <Link to='/login'>Log In</Link>
+      <Link to='/login' className="goToLogin">Log In</Link>
     </div>
   )
 }

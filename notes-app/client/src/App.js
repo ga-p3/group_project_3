@@ -38,8 +38,8 @@ class App extends Component {
         user: fetchedUser
       })
     } catch (e) {
-      // throw e
-      console.log('Issue fetching token')
+      throw e
+      // console.log('Issue fetching token')
     }
   }
 
@@ -123,7 +123,11 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
+<<<<<<< HEAD
               <Link to='/dashboard'>Dashboard</Link>
+=======
+              <Link to='/dashboard'>{this.state.user.name}</Link>
+>>>>>>> d1149cbfb0dbc0cd334aab35f61481c72c735e2f
 
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
@@ -145,6 +149,7 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
+<<<<<<< HEAD
               folders={this.state.folders}
             />
 
@@ -152,6 +157,9 @@ class App extends Component {
               path='/notes'
               user={user}
               component={Notes}
+=======
+              // user={this.state.user}
+>>>>>>> d1149cbfb0dbc0cd334aab35f61481c72c735e2f
               folders={this.state.folders}
             />
 

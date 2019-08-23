@@ -86,7 +86,7 @@ const authorized = (request, response, next) => {
         return next(err)
       }
       request.user = user
-      console.log(user)
+    //   console.log(user)
       return next()
     })(request, response, next)
   }

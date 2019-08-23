@@ -5,6 +5,8 @@ label, input, button {
 
 input {
     padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 h1 {
@@ -20,6 +22,7 @@ h4 {
     flex-direction: column;
     align-content: space-around;
     align-items: center;
+    text-align: center;
     border: 5px solid black;
     background-color: lightblue;
     height: auto;
