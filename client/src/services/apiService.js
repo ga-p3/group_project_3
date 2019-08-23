@@ -1,5 +1,7 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:4567'
+const BASE_URL = 'https://notes-apps.herokuapp.com'
+// const BASE_URL = 'https://localhost:4567'
+
 
 const JWT_TOKEN = localStorage.getItem('token')
 
