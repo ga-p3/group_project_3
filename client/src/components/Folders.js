@@ -66,8 +66,6 @@ class Folders extends React.Component {
 
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
 
-
-
                 <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
                 {/* dave added fetchfolder lik i told you so */}
 

@@ -274,58 +274,57 @@ app.put('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => 
 });
 
 // delete note-- works
-app.delete('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => {
+app.delete('/notes/:note_id', async (req, res) => {
 
   try {
-    const userId = req.params.user_id;
-    const folderId = req.params.folder_id;
     const noteId = req.params.note_id;
-
-    const user = await User.findByPk(userId);
-    const folder = await Folder.findByPk(folderId);
+    // const user = await User.findByPk(userId);
+    // const folder = await Folder.findByPk(folderId);
     const note = await Note.findByPk(noteId);
-
-    if (user) {
-      if (folder) {
-        if (note) {
-          if (userId == folder.dataValues.userId && userId == note.dataValues.userId) {
-            await Note.destroy({
-              where: { id: noteId }
-            });
-            res.json(`Note with id of ${noteId} has been deleted`);
-          }
-        }
-      }
-    }
+    await note.destroy(noteId)
+    // if (user) {
+    //   if (folder) {
+    //     if (note) {
+    //       if (userId == folder.dataValues.userId && userId == note.dataValues.userId) {
+    //         await Note.destroy({
+    //           where: { id: noteId }
+    //         });
+    //         res.json(`Note with id of ${noteId} has been deleted`);
+    //       }
+    //     }
+    //   }
+    // }
   } catch (error) {
     throw error
   }
 });
 
 // delete folder-- works
-app.delete('/user/:user_id/folders/:folder_id', async (req, res) => {
+app.delete('/folders/:folder_id', async (req, res) => {
   try {
-    const userId = req.params.user_id;
+    // const userId = req.params.user_id;
     const folderId = req.params.folder_id;
+    const folders= await Folder.findByPk(folderId)
+    await folders.destroy(folderId)
 
-    const user = await Folder.findByPk(userId);
-    const folder = await Folder.findByPk(folderId);
-    if (user) {
-      if (folder) {
-        if (userId == folder.dataValues.userId) {
-          // console.log(folder.dataValues);
-          await Folder.destroy({
-            where: { id: folderId }
-          });
-          res.json(`Folder with id of ${folderId} has been deleted`);
-        }
-      }
-    }
-    else {
-      res.status(400).json({
-        message: "folder was not deleted"
-      });
-    }
+    // const user = await Folder.findByPk(userId);
+    // const folder = await Folder.findByPk(folderId);
+    // if (user) {
+    //   if (folder) {
+    //     if (userId == folder.dataValues.userId) {
+    //       // console.log(folder.dataValues);
+    //       await Folder.destroy({
+    //         where: { id: folderId }
+    //       });
+    //       res.json(`Folder with id of ${folderId} has been deleted`);
+    //     }
+    //   }
+    // }
+    // else {
+    //   res.status(400).json({
+    //     message: "folder was not deleted"
+    //   });
+    // }
   } catch (error) {
     console.log('this error came about from deleting folders');
     throw error
