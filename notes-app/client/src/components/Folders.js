@@ -45,8 +45,8 @@ class Folders extends React.Component {
         if (folders) {
             return folders.map(folder=>{
                 return(
-                    <div className="folder" key={folder.id}>
-                        <Link to="/notes"><h5>{folder.title}</h5></Link>
+                    <div key={folder.id}>
+                        <Link className="folder" to="/notes"><h5>{folder.title}</h5></Link>
                     </div>
                 )
             })
@@ -57,12 +57,13 @@ class Folders extends React.Component {
         // console.log('foldersJs this.state.folders',folders)
         // console.log('folderJS this.state.users', user)
         return (
-            <div>
+            <div className="folder-list">
                 <h2>Folder List</h2>
                 <div className="folder-container">
                     {this.renderFolders(folders)}
                 </div>
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} */}
+
 
 
                 <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
