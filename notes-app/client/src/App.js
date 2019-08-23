@@ -22,17 +22,20 @@ class App extends Component {
 
 
   async componentDidMount () {
-    // fetch user data on page refresh
+    await this.fetchFolders()
+  }
+  
+  async fetchFolders () {
     try {
       const fetchedUser = await getFolders()
-
+  
       this.setState({
         isSignedIn: authService.isAuthenticated(),
         user: fetchedUser
       })
     } catch (e) {
-      // throw e
-      console.log('Issue fetching token')
+      throw e
+      // console.log('Issue fetching token')
     }
   }
 
@@ -128,7 +131,7 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
-              user={this.state.user}
+              // user={this.state.user}
               folders={this.state.folders}
             />
 

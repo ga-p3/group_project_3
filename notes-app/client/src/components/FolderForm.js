@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
-import { makeFolders, getFolders } from '../services/apiService'
-import Axios from 'axios';
+// import { Redirect } from 'react-router-dom'
+import { makeFolders } from '../services/apiService'
+// import Axios from 'axios';
 
 class CreateFolderForm extends Component {
     constructor(props) {
@@ -21,24 +21,26 @@ class CreateFolderForm extends Component {
     }
     handleSubmit = async (event) => { 
         event.preventDefault()
-        const userId = this.props.user[0].id
-        console.log(userId)
+        // const user = this.props.user[0]
+        const userId = await this.props.user[0].id
+        // console.log(userId)
         const { title } = this.state
 
         let newFolder = { title, userId }
-        console.log('FolderForm, handleSubmit',newFolder)
+        // console.log('FolderForm, handleSubmit',newFolder)
         await makeFolders(newFolder)
         const folders = this.state.folders
         this.setState({folders: [...folders], created: true})
-        const getFolder = await getFolders()
-        if (getFolder) {
-            console.log('TRYIN TO PUSH HISTORY', this.props.history)
-			// this.props.history.push('/dashboard')
 
-        }
+        await this.props.fetchFolders()
+        // and he call it here by props
+        //
 
-
-        
+        // const getFolder = await getFolders()
+        // if (getFolder) {
+        //     console.log('TRYIN TO PUSH HISTORY', this.props.history)
+		// 	// this.props.history.push('/dashboard')
+        // }
         // await Axios.post('/folders', newFolder)
         // this.setState( { created: true } )
     }
