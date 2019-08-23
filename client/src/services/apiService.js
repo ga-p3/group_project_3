@@ -76,11 +76,12 @@ export const makeFolders = async (newFolder) => {
   }
 }
 
-export const findNotes = async () => {
+export const findNotes = async (notesId) => {
   try {
-    const id = localStorage.getItem('userId')
+    const id = notesId
     const response = await api.get(`/user/${id}/notes`)
     let { data } = response
+    console.log(data)
     return data
   } catch (error) {
     console.log('error in apiservice findnotes')

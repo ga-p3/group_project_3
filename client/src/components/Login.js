@@ -7,12 +7,12 @@ function Login (props) {
 
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div id="form">
+      <h1>Log In</h1>
 
       <LoginForm {...props} />
       <h4>New Users Sign Up Below</h4>
-      <Link to='/signup'>Sign Up</Link>
+      <Link to='/signup' className="sign-in-link">Sign Up</Link>
     </div>
   )
 }

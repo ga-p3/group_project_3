@@ -27,7 +27,7 @@ class App extends Component {
 
   async componentDidMount() {
     await this.fetchFolders()
-    await this.fetchNotes()
+    // await this.fetchNotes()
   }
 
   async fetchFolders() {
@@ -44,19 +44,19 @@ class App extends Component {
     }
   }
 
-  async fetchNotes() {
-    try {
-      const findAllNotes = await findNotes()
-      // put notes in state
-      this.setState({
-        isSignedIn: authService.isAuthenticated(), 
-        notes: findAllNotes
-      })
-      console.log('notes from user',findAllNotes)
-    } catch (error) {
-      console.log('help notes')
-    }
-  }
+  // async fetchNotes() {
+  //   try {
+  //     const findAllNotes = await findNotes()
+  //     // put notes in state
+  //     this.setState({
+  //       isSignedIn: authService.isAuthenticated(),
+  //       notes: findAllNotes
+  //     })
+  //     console.log('notes from user', findAllNotes)
+  //   } catch (error) {
+  //     console.log('help notes')
+  //   }
+  // }
 
   // async componentDidMount() {
   //   try {
@@ -119,19 +119,24 @@ class App extends Component {
   render() {
     const { isSignedIn, user } = this.state
     // console.log('yo this user',user)
-    console.log('state notes',this.state.notes)
+    // console.log('state notes', this.state.notes)
 
     return (
       <div className='App'>
         <nav>
           <div>
-            <Link to='/'>Home</Link>
+            <Link className="link" to='/'>Home</Link>
             <Link to='/dashboard'>Dashboard</Link>
           </div>
 
           {isSignedIn &&
             <div className='nav-section'>
-
+              <Link
+                className="link"
+                id="username"
+                to='/dashboard'>
+                  {this.state.user.name}
+              </Link>
               <Link to='/dashboard'>{this.state.user.name}</Link>
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
@@ -139,15 +144,18 @@ class App extends Component {
 
           {!isSignedIn &&
             <div className='nav-section'>
-              <Link to='/signup'>Signup</Link>
-              <Link to='/login'>Login</Link>
+              <Link className="link" to='/signup'>Sign Up</Link>
+              <Link className="link" to='/login'>Log In</Link>
             </div>
           }
         </nav>
 
         <main>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route className="link"
+              exact path='/'
+              component={Home}
+            />
             <ProtectedRoute
               path='/dashboard'
               user={user}
@@ -158,10 +166,22 @@ class App extends Component {
             <Route // Why can't this be a protected route
               path='/folder/:folder_id'
               user={user}
+<<<<<<< HEAD:client/src/App.js
               component={Notes}
 
+=======
+              render={(props) => (
+                <Notes
+                  {...props}
+                  key={Math.random() * 4}
+                  user={user}
+                  signedIn={this.fetchFolders}
+                />
+              )}
+>>>>>>> develop:notes-app/client/src/App.js
             />
             <Route
+              
               path='/login'
               render={
                 (props) =>
@@ -173,6 +193,7 @@ class App extends Component {
               }
             />
             <Route
+              className="link"
               path='/signup'
               render={
                 (props) =>
