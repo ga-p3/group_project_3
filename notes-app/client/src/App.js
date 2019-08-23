@@ -27,7 +27,7 @@ class App extends Component {
 
   async componentDidMount() {
     await this.fetchFolders()
-    await this.fetchNotes()
+    // await this.fetchNotes()
   }
 
   async fetchFolders() {
@@ -44,19 +44,19 @@ class App extends Component {
     }
   }
 
-  async fetchNotes() {
-    try {
-      const findAllNotes = await findNotes()
-      // put notes in state
-      this.setState({
-        isSignedIn: authService.isAuthenticated(), 
-        notes: findAllNotes
-      })
-      console.log('notes from user',findAllNotes)
-    } catch (error) {
-      console.log('help notes')
-    }
-  }
+  // async fetchNotes() {
+  //   try {
+  //     const findAllNotes = await findNotes()
+  //     // put notes in state
+  //     this.setState({
+  //       isSignedIn: authService.isAuthenticated(),
+  //       notes: findAllNotes
+  //     })
+  //     console.log('notes from user', findAllNotes)
+  //   } catch (error) {
+  //     console.log('help notes')
+  //   }
+  // }
 
   // async componentDidMount() {
   //   try {
@@ -119,7 +119,7 @@ class App extends Component {
   render() {
     const { isSignedIn, user } = this.state
     // console.log('yo this user',user)
-    console.log('state notes',this.state.notes)
+    // console.log('state notes', this.state.notes)
 
     return (
       <div className='App'>
@@ -157,7 +157,14 @@ class App extends Component {
             <Route // Why can't this be a protected route
               path='/folder/:folder_id'
               user={user}
-              component={Notes}
+              render={(props) => (
+                <Notes
+                  {...props}
+                  key={Math.random() * 4}
+                  user={user}
+                  signedIn={this.fetchFolders}
+                />
+              )}
             />
             <Route
               path='/login'
