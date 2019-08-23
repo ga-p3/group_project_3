@@ -131,6 +131,7 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
+<<<<<<< Updated upstream
               <Link
                 className="link"
                 id="username"
@@ -138,6 +139,10 @@ class App extends Component {
                   {this.state.user.name}
               </Link>
               <Link to='/dashboard'>{this.state.user.name}</Link>
+=======
+              <Link to='/dashboard'>Dashboard</Link>
+
+>>>>>>> Stashed changes
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
           }
