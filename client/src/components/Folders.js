@@ -1,5 +1,5 @@
 import React from 'react'
-import { getProfile } from '../services/apiService'
+import { getProfile, deleteFolder } from '../services/apiService'
 import authService from '../services/authService'
 import { Route, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
@@ -43,21 +43,29 @@ class Folders extends React.Component {
             throw error
         }
     }
+
     handleDelete = async (event) => {
         event.preventDefault()
-        let id = this.props.match.params.id
-        console.log(id)
-        await Axios.delete(`/folders/${id}`)
+
+        // const id = event.target.parentElement
+        // console.log(id)
+        // event.target.parentElement.remove()
+
+        const id = event.target.value
+        // await Axios.delete(`/folders/${id}`)
+        await deleteFolder(id)
         this.setState({ deleted: true })
     }
+
     renderFolders = (folders) => {
         if (folders) {
             return folders.map(folder => {
                 return (
                     <div key={folder.id}>
 
-                        <Link className="folder" to={`/folder/${folder.id}`} >
+                        <Link className="folder" to={`/folder/${folder.id}`}>
                             <h5>{folder.title}</h5>
+                            <button onClick={this.handleDelete} value={folder.id}>Delete</button>
                         </Link>
 
                     </div>
@@ -79,6 +87,7 @@ class Folders extends React.Component {
                 <h2>Folder List</h2>
                 <div className="folder-container">
                     {this.renderFolders(folders)}
+                    
                 </div>
 
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} /> */}

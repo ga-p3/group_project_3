@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import CreateNoteForm from './NoteForm';
-import { getProfile, getFolders, getNotes, findNotes } from '../services/apiService';
+import { getProfile, getFolders, getNotes, findNotes, deleteNote } from '../services/apiService';
 import authService from '../services/authService';
 import { Router, Link } from 'react-router-dom'; 
-import { checkServerIdentity } from 'tls';
+// import { checkServerIdentity } from 'tls';
+import Axios from 'axios'
 
 class Notes extends Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class Notes extends Component {
             folders: [], 
             notes: [], 
             title: '', 
-            content: ''
+            content: '',
+            delete: false
         }
     }
     async componentDidMount() {
@@ -43,13 +45,29 @@ class Notes extends Component {
         }
     }
 
-    renderNotes = (notes) => {
-        if (notes) {
-            return notes.map(note => {
+    handleDelete = async (event) => {
+        // event.preventDefault()
+        // let id = this.props.match.params.id
+        // console.log(id)
+        // await Axios.delete(`/folders/${id}`)
+        // this.setState({ deleted: true })
+
+
+        event.preventDefault()
+        const id = event.target.value
+        await deleteNote(id)
+        this.setState({ deleted: true })
+
+    }
+
+    renderNotes = async () => {
+        if (this.state.notes) {
+            return await this.state.notes.map(note => {
                 return (
                     <div key={note.id}>
                         <Link className="note" to="/specificNote"><h4>{note.title}</h4>
                         <h5>{note.content}</h5></Link>
+                        <button onClick={this.handleDelete} value={note.id} >Delete</button>
                     </div>
                 )
             })
