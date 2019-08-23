@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Notes from './components/Notes'
+import Folders from './components/Folders'
 import { Route, Link, Switch } from 'react-router-dom'
 import { login, signup, getProfile, findNotes } from './services/apiService'
 import authService from './services/authService'
@@ -46,6 +47,11 @@ class App extends Component {
   async fetchNotes() {
     try {
       const findAllNotes = await findNotes()
+      // put notes in state
+      this.setState({
+        isSignedIn: authService.isAuthenticated(), 
+        notes: findAllNotes
+      })
       console.log('notes from user',findAllNotes)
     } catch (error) {
       console.log('help notes')
@@ -112,21 +118,21 @@ class App extends Component {
 
   render() {
     const { isSignedIn, user } = this.state
-    console.log('yo this user',user)
+    // console.log('yo this user',user)
+    console.log('state notes',this.state.notes)
 
     return (
       <div className='App'>
         <nav>
           <div>
             <Link to='/'>Home</Link>
+            <Link to='/dashboard'>Dashboard</Link>
           </div>
 
           {isSignedIn &&
             <div className='nav-section'>
 
               <Link to='/dashboard'>{this.state.user.name}</Link>
-
-
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
           }
@@ -142,17 +148,19 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path='/' component={Home} />
-
             <ProtectedRoute
               path='/dashboard'
               user={user}
               component={Dashboard}
 
-              // user={this.state.user}
-
               folders={this.state.folders}
             />
+            <Route // Why can't this be a protected route
+              path='/folder/:folder_id'
+              user={user}
+              component={Notes}
 
+            />
             <Route
               path='/login'
               render={
@@ -164,7 +172,6 @@ class App extends Component {
                   />
               }
             />
-
             <Route
               path='/signup'
               render={
