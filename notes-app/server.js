@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // app.use(errorHandler)
 
-// app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 
 app.use('/auth', authRouter);
 app.use('/app', authorized, appRouter);
@@ -331,6 +331,11 @@ app.delete('/user/:user_id/folders/:folder_id', async (req, res) => {
     throw error
   }
 });
+
+// after all the define routes
+if (process.env.NODE_ENV == "production") {
+  app.use('*', (req, res) => res.sendFile(path.join(__dirname, './client/build', "index.html")));
+}
 
 app.use((err, req, res, next) => {
   res.status(500).json({

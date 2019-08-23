@@ -10,7 +10,8 @@
     "db:init": "dropdb --if-exists notes_db && createdb notes_db",
     "db:reset": "node ./scripts/resetDb.js",
     "db:seed": "node ./scripts/seedDb.js",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "keywords": [],
   "author": "",
