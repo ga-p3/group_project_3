@@ -1,0 +1,40 @@
+.folder-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.folder-title {
+    text-decoration: underline;
+}
+
+.folder-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    border: 5px solid black;
+    background-color: yellow;
+    width: 200px;
+}
+
+.folder {
+    text-decoration: none;
+    font-size: 25px;
+    margin: 20px;
+    width: 200px;
+    height: 70px;
+}
+
+a {
+    color: black;
+}
+
+.folder:hover {
+    text-shadow: 2px 2px 2px darkgreen;
+}
+
+button:hover {
+    box-shadow: 2px 2px;
+}

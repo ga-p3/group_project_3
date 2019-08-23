@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { Route, Link, Switch } from 'react-router-dom'
-import { login, signup } from './services/apiService'
+import { login, signup, getFolders } from './services/apiService'
 import authService from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
 // import axios from 'axios'
@@ -17,6 +17,25 @@ class App extends Component {
       isSignedIn: false,
       user: {},
       folders: {}
+    }
+  }
+
+
+  async componentDidMount () {
+    await this.fetchFolders()
+  }
+  
+  async fetchFolders () {
+    try {
+      const fetchedUser = await getFolders()
+  
+      this.setState({
+        isSignedIn: authService.isAuthenticated(),
+        user: fetchedUser
+      })
+    } catch (e) {
+      throw e
+      // console.log('Issue fetching token')
     }
   }
 
@@ -90,7 +109,7 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
-              <Link to='/app/profile'>Profile</Link>
+              <Link to='/dashboard'>{this.state.user.name}</Link>
 
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
@@ -112,7 +131,7 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
-              user={this.state.user}
+              // user={this.state.user}
               folders={this.state.folders}
             />
 

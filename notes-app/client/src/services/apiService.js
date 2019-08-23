@@ -48,23 +48,32 @@ export const getFolders = async() => {
   }
 }
 
-export const getNotes = async() => {
-  try {
-    const iduser = localStorage.getItem('userId')
-    const idfolder = localStorage.getItem('folderId')
-    const response = await api.get(`/user/${iduser}/folders/${idfolder}`)
-    let { data } = response 
-    return data 
-  } catch (error) {
-    console.log('no notes retrieved in apiService getNotes - Ok if user not signed in')
-    throw error
-  }
-}
+// export const getNotes = async() => {
+//   try {
+//     const iduser = localStorage.getItem('userId')
+//     const idfolder = localStorage.getItem('folderId')
+//     const response = await api.get(`/user/${iduser}/folders/${idfolder}`)
+//     let { data } = response 
+//     return data 
+//   } catch (error) {
+//     console.log('no notes retrieved in apiService getNotes - Ok if user not signed in')
+//     throw error
+//   }
+// }
 
 
 export const makeFolders = async (newFolder) => {
   try {
     const response = await api.post('/folders', newFolder)
+    let { data } = response
+    const id = localStorage.getItem('userId')
+
+    //console.log('apiService, makeFolders, data:', data)
+
+    //console.log('YO THIS IS DATA', data)
+
+    data.userId = id
+    return data
   } catch (error) {
     console.log('ERROR SENDING API REQ TO API.POST')
   }
