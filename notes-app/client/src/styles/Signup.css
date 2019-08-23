@@ -5,6 +5,8 @@ label, input, button {
 
 input {
     padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 h1 {
