@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import CreateNoteForm from './NoteForm';
 import { getProfile, getFolders, getNotes, findNotes } from '../services/apiService';
 import authService from '../services/authService';
-import { Router, Link } from 'react-router-dom'; 
+import { Router, Link } from 'react-router-dom';
 import { checkServerIdentity } from 'tls';
 
 class Notes extends Component {
     constructor(props) {
-        super(props) 
+        super(props)
         this.state = {
-            user: props.user, 
-            folders: [], 
-            notes: [], 
-            title: '', 
+            user: props.user,
+            folders: [],
+            notes: [],
+            title: '',
             content: ''
         }
     }
@@ -42,38 +42,38 @@ class Notes extends Component {
     // }
 
 
-  async fetchNotes() {
-    try {
-        const id = await this.state.user[0].id
-      const findAllNotes = await findNotes(id)
-      // put notes in state
-      this.setState({
-        isSignedIn: authService.isAuthenticated(),
-        notes: findAllNotes
-      })
-    //   console.log('notes from user', findAllNotes)
-    } catch (error) {
-      console.log('help notes')
-    }
-  }
-
-
-    renderNotes = async () => {
+    async fetchNotes() {
         try {
-            
-            await console.log('NJ RN',this.state.notes)
-            await this.state.notes.map(note=>{
-                return (
-                    <div>
-                        <h5>{note.title}</h5>
-                        <h6>{note.content}</h6>
-                    </div>
-                )
+            const id = await this.state.user[0].id
+            const findAllNotes = await findNotes(id)
+            // put notes in state
+            this.setState({
+                isSignedIn: authService.isAuthenticated(),
+                notes: findAllNotes
             })
+            //   console.log('notes from user', findAllNotes)
         } catch (error) {
-            console.log('NJ RN')
+            console.log('help notes')
         }
     }
+
+
+    // renderNotes = async () => {
+    //     try {
+
+    //         await console.log('NJ RN',this.state.notes)
+    //         await this.state.notes.map(note=>{
+    //             return (
+    //                 <div>
+    //                     <h5>{note.title}</h5>
+    //                     <h6>{note.content}</h6>
+    //                 </div>
+    //             )
+    //         })
+    //     } catch (error) {
+    //         console.log('NJ RN')
+    //     }
+    // }
 
     // handleClick = async (event) => {
     //     event.preventDefault()
@@ -88,11 +88,24 @@ class Notes extends Component {
 
     render() {
         const { notes, user } = this.state
-        return(
+        // console.log('NJR', notes)
+        const folderId = this.props.match.params.folder_id
+        return (
             <div className="note-list" onClick={this.handleClick}>
-                    <h2>Note List</h2>
+                <h2>Note List</h2>
                 <div className="note-container">
                     {/* {this.state.notes} */}
+                    {this.state.notes.map(note => {
+                        if (note.folderId == folderId) {
+
+                        return (
+                            <div key={note.id}>
+                                <h3>{note.title}</h3>
+                                <h6>{note.content}</h6>
+                            </div>
+                        )
+                        }
+                    })}
                 </div>
                 {/* <CreateNoteForm user={user} fetchNotes={this.fetchNotes} /> */}
             </div>

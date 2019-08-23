@@ -27,7 +27,7 @@ class App extends Component {
 
   async componentDidMount() {
     await this.fetchFolders()
-    // await this.fetchNotes()
+    await this.fetchNotes()
   }
 
   async fetchFolders() {
@@ -43,6 +43,26 @@ class App extends Component {
       // console.log('Issue fetching token')
     }
   }
+
+
+
+  async fetchNotes() {
+    try {
+        const id = await this.state.user[0].id
+      const findAllNotes = await findNotes(id)
+      // put notes in state
+      this.setState({
+        isSignedIn: authService.isAuthenticated(),
+        notes: findAllNotes
+      })
+    //   console.log('notes from user', findAllNotes)
+    } catch (error) {
+      console.log('help notes')
+    }
+  }
+
+
+
 
   // async fetchNotes() {
   //   try {
@@ -117,10 +137,10 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, user } = this.state
+    const { isSignedIn, user, notes } = this.state
     // console.log('yo this user',user)
     // console.log('state notes', this.state.notes)
-
+    // console.log(user, notes)
     return (
       <div className='App'>
         <nav>
@@ -131,7 +151,6 @@ class App extends Component {
 
           {isSignedIn &&
             <div className='nav-section'>
-<<<<<<< Updated upstream
               <Link
                 className="link"
                 id="username"
@@ -139,10 +158,6 @@ class App extends Component {
                   {this.state.user.name}
               </Link>
               <Link to='/dashboard'>{this.state.user.name}</Link>
-=======
-              <Link to='/dashboard'>Dashboard</Link>
-
->>>>>>> Stashed changes
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
           }
@@ -168,13 +183,14 @@ class App extends Component {
               folders={this.state.folders}
             />
             <Route // Why can't this be a protected route
-              path='/folder/:folder_id'
+              path='/folders/:folder_id'
               user={user}
               render={(props) => (
                 <Notes
                   {...props}
                   key={Math.random() * 4}
                   user={user}
+                  folderid={props.id}
                   signedIn={this.fetchFolders}
                 />
               )}

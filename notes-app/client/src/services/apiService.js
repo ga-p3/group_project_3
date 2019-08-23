@@ -79,7 +79,7 @@ export const findNotes = async (notesId) => {
     const id = notesId
     const response = await api.get(`/user/${id}/notes`)
     let { data } = response
-    console.log(data)
+    // console.log(data)
     return data
   } catch (error) {
     console.log('error in apiservice findnotes')

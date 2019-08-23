@@ -41,32 +41,31 @@ class Folders extends React.Component {
             throw error
         }
     }
-    renderFolders = (folders) => {
-        if (folders) {
-            return folders.map(folder=>{
-                return(
-                    <div className="folder" key={folder.id}>
-                        <Link to="/notes"><h5>{folder.title}</h5></Link>
-                    </div>
-                )
-            })
-        }
-    }
+
+
+
     render() {
         const { folders, user } = this.state
         // console.log('foldersJs this.state.folders',folders)
         // console.log('folderJS this.state.users', user)
         // console.log('user',user)
+        console.log('folders lol', folders)
         return (
             <div className="folder-list">
                 <h2>Folder List</h2>
                 <div className="folder-container">
-                    {this.renderFolders(folders)}
+                    {folders.map(folder => {
+                        return (
+                            <div className="folder" key={folder.id} folderid={folder.id}>
+                                <Link to={`/folders/${folder.id}`} folderid={folder.id}><h5>{folder.title}</h5></Link>
+                            </div>
+                        )
+                    })}
                 </div>
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} /> */}
-                <CreateFolderForm user={user} fetchFolders={this.fetchFolders}/>
-            </div>
-        )
-    }
-}
+                    <CreateFolderForm user={user} fetchFolders={this.fetchFolders} />
+                </div>
+                )
+            }
+        }
 export default Folders 
