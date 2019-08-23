@@ -125,13 +125,18 @@ class App extends Component {
       <div className='App'>
         <nav>
           <div>
-            <Link to='/'>Home</Link>
+            <Link className="link" to='/'>Home</Link>
             <Link to='/dashboard'>Dashboard</Link>
           </div>
 
           {isSignedIn &&
             <div className='nav-section'>
-
+              <Link
+                className="link"
+                id="username"
+                to='/dashboard'>
+                  {this.state.user.name}
+              </Link>
               <Link to='/dashboard'>{this.state.user.name}</Link>
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
@@ -139,15 +144,18 @@ class App extends Component {
 
           {!isSignedIn &&
             <div className='nav-section'>
-              <Link to='/signup'>Signup</Link>
-              <Link to='/login'>Login</Link>
+              <Link className="link" to='/signup'>Sign Up</Link>
+              <Link className="link" to='/login'>Log In</Link>
             </div>
           }
         </nav>
 
         <main>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route className="link"
+              exact path='/'
+              component={Home}
+            />
             <ProtectedRoute
               path='/dashboard'
               user={user}
@@ -160,6 +168,7 @@ class App extends Component {
               component={Notes}
             />
             <Route
+              
               path='/login'
               render={
                 (props) =>
@@ -171,6 +180,7 @@ class App extends Component {
               }
             />
             <Route
+              className="link"
               path='/signup'
               render={
                 (props) =>

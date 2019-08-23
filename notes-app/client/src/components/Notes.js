@@ -47,9 +47,9 @@ class Notes extends Component {
         if (notes) {
             return notes.map(note => {
                 return (
-                    <div key={note.id}>
-                        <Link className="note" to="/specificNote"><h4>{note.title}</h4>
-                        <h5>{note.content}</h5></Link>
+                    <div className="note-container" key={note.id}>
+                        <h4 className="note-title">{note.title}</h4>
+                        <h5 className="note-content">{note.content}</h5>
                     </div>
                 )
             })
