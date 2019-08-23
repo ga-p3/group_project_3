@@ -37,7 +37,7 @@ app.use(passport.initialize());
 //-- WORKS
 app.get('/', async (req, res) => {
   try {
-    res.send('Project 3 GG SON!!');
+    res.send('Project 3!');
   }
   catch (err) {
     throw err
@@ -47,6 +47,8 @@ app.get('/', async (req, res) => {
 
 // get all folders-- WORKS
 app.get('/user/:user_id', async (req, res) => {
+  // console.log('poo ', req)
+  // console.log(res.headers,'something----------------')
   try {
     const id = req.params.user_id;
     // const findUser = await Folder.findAll({ where: { userId: id } });
@@ -222,7 +224,7 @@ app.put('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => 
       if (folder) {
         if (note) {
           if (userId == folder.dataValues.userId && userId == note.dataValues.userId) {
-            console.log('old note', note.dataValues);
+            // console.log('old note', note.dataValues);
             await Note.update(
               {
                 title: req.body.title,
@@ -234,7 +236,7 @@ app.put('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => 
             )
             res.json({ message: `Note with id${noteId} was updated` });
             const newNote = await Note.findByPk(noteId);
-            console.log('new note', newNote.dataValues);
+            // console.log('new note', newNote.dataValues);
           }
         }
       }
@@ -285,7 +287,7 @@ app.delete('/user/:user_id/folders/:folder_id', async (req, res) => {
     if (user) {
       if (folder) {
         if (userId == folder.dataValues.userId) {
-          console.log(folder.dataValues);
+          // console.log(folder.dataValues);
           await Folder.destroy({
             where: { id: folderId }
           });

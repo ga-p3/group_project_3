@@ -34,8 +34,8 @@ class App extends Component {
         user: fetchedUser
       })
     } catch (e) {
-      // throw e
-      console.log('Issue fetching token')
+      throw e
+      // console.log('Issue fetching token')
     }
   }
 
@@ -131,7 +131,7 @@ class App extends Component {
               path='/dashboard'
               user={user}
               component={Dashboard}
-              user={this.state.user}
+              // user={this.state.user}
               folders={this.state.folders}
             />
 

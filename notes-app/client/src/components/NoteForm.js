@@ -37,9 +37,9 @@ class CreateNoteForm extends Component {
     let { title } = this.state
     let newFolder = { title }
 
-    console.log('NoteFormJs handleSubmit',title)
+    // console.log('NoteFormJs handleSubmit',title)
 
-    console.log(title)
+    // console.log(title)
 
     // let data = await Axios.post('/icecreams', newIceCream)
     // this.setState({created:true}
