@@ -51,7 +51,7 @@ export const getProfile = async() => {
 // export const getNotes = async() => {
 //   try {
 //     const iduser = localStorage.getItem('userId')
-//     // const idfolder = localStorage.getItem('folderId')
+//     const idfolder = localStorage.getItem('folderId')
 //     const response = await api.get(`/user/${iduser}/folders/${idfolder}`)
 //     let { data } = response 
 //     return data 
