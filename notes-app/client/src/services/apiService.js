@@ -43,8 +43,8 @@ export const getProfile = async() => {
     let { data } = response
     return data
   } catch (error) {
-    console.log('no folders retrieved in apiService getFolders - OK if user not signed in')
-    throw error
+    console.error('no folders retrieved in apiService getFolders - OK if user not signed in')
+    // throw error
   }
 }
 
@@ -70,7 +70,7 @@ export const makeFolders = async (newFolder) => {
     data.userId = id
     return data
   } catch (error) {
-    console.log('ERROR SENDING API REQ TO API.POST')
+    console.error('ERROR SENDING API REQ TO API.POST')
   }
 }
 
@@ -82,7 +82,17 @@ export const findNotes = async (notesId) => {
     // console.log(data)
     return data
   } catch (error) {
-    console.log('error in apiservice findnotes')
+    console.error('error in apiservice findnotes')
+  }
+}
+
+
+export const updateFolder = async (id, folder) => {
+  try {
+    const response = await api.put(`/folders/${id}`, folder)
+    console.log(response)
+  } catch (error) {
+    console.error('apiservice updatefolder')
   }
 }
 
@@ -92,7 +102,7 @@ export const deleteFolder = async (folderId) => {
     const id = folderId
     await api.delete(`/folders/${id}`)
   } catch (error) {
-    console.log('apiservice deletefolder error')
+    console.error('apiservice deletefolder error')
   }
 }
 
@@ -101,7 +111,7 @@ export const deleteNote = async (noteId) => {
     const id = noteId
     await api.delete(`/notes/${id}`)
   } catch (error) {
-    console.log('apiservice deletenote error')
+    console.error('apiservice deletenote error')
   }
 }
 

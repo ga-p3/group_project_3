@@ -235,6 +235,25 @@ app.get('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => 
   }
 });
 
+
+
+// edit folder=
+app.put('/folders/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Folder.update(
+      { title: req.body.title },
+      { where: { id: id } }
+    );
+    res.send('updated')
+  } catch (error) {
+    throw error
+  }
+});
+
+
+
+
 // edit note -- works
 app.put('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => {
   try {
@@ -309,7 +328,7 @@ app.delete('/folders/:folder_id', async (req, res) => {
     const folderId = req.params.folder_id;
     console.log('this is folder id', folderId)
     // const user = await Folder.findByPk(userId);
-    await Folder.destroy({where: {id: folderId}});
+    await Folder.destroy({ where: { id: folderId } });
     res.send('Folder deleted')
 
 

@@ -3,6 +3,7 @@ import { getProfile, deleteFolder } from '../services/apiService'
 import authService from '../services/authService'
 import { Route, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
+import FolderUpdate from './FolderUpdate'
 import Notes from './Notes';
 import '../styles/Folders.css'
 
@@ -14,7 +15,10 @@ class Folders extends React.Component {
             folders: [],
             notes: [],
             title: '',
-            showError: false
+            showError: false,
+            name: '',
+            value: '',
+            showForm: false
         }
     }
 
@@ -42,8 +46,16 @@ class Folders extends React.Component {
         }
     }
 
+    handleChange = (e) => {
+        const id = e.target.parentNode.id
+        // if (id === )
+        console.log(this.state.folders)
+        const { name, value } = e.target
+        this.setState({ [name]: value })
+    }
+
     handleDelete = async (event) => {
-        event.preventDefault()
+        // event.preventDefault()
         // const id = event.target.parentElement
         // console.log(id)
         // event.target.parentElement.remove()
@@ -52,6 +64,12 @@ class Folders extends React.Component {
         await deleteFolder(id)
         this.setState({ deleted: true })
         await this.fetchFolders()
+    }
+
+    handleUpdate = async (event) => {
+        event.preventDefault()
+        const id = event.target.value
+
     }
 
 
@@ -63,7 +81,10 @@ class Folders extends React.Component {
                         <Link className="folder" to={`/folder/${folder.id}`}>
                             <h5>{folder.title}</h5>
                         </Link>
+                        <div>
+                            <FolderUpdate folderId={folder.id}/>
                             <button onClick={this.handleDelete} value={folder.id}>Delete</button>
+                        </div>
                     </div>
                 )
             })
@@ -108,7 +129,7 @@ class Folders extends React.Component {
                 </div>
 
                 {/* <Notes user={this.props.user} folders={this.props.user.folders.notes} /> */}
-                <CreateFolderForm user={user} fetchFolders={this.fetchFolders} />
+                <CreateFolderForm user={user} fetchFolders={this.fetchFolders} value={this.state.value} />
 
             </div>
         )
