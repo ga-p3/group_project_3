@@ -4,7 +4,7 @@ import authService from '../services/authService'
 import { Route, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
 import Notes from './Notes';
-import '../styles/FolderList.css'
+import '../styles/Folders.css'
 
 class Folders extends React.Component {
     constructor(props) {
@@ -45,10 +45,8 @@ class Folders extends React.Component {
         if (folders) {
             return folders.map(folder=>{
                 return(
-                    <div key={folder.id}>
-                        <Link className="folder" to={`/folder/${folder.id}`} >
-                            <h5>{folder.title}</h5>
-                        </Link>
+                    <div className="folder" key={folder.id}>
+                        <Link to="/notes"><h5>{folder.title}</h5></Link>
                     </div>
                 )
             })
@@ -58,7 +56,7 @@ class Folders extends React.Component {
         const { folders, user } = this.state
         // console.log('foldersJs this.state.folders',folders)
         // console.log('folderJS this.state.users', user)
-        console.log('user',user)
+        // console.log('user',user)
         return (
             <div className="folder-list">
                 <h2>Folder List</h2>
