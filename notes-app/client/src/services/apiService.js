@@ -86,6 +86,25 @@ export const findNotes = async (notesId) => {
   }
 }
 
+
+export const deleteFolder = async (folderId) => {
+  try {
+    const id = folderId
+    await api.delete(`/folders/${id}`)
+  } catch (error) {
+    console.log('apiservice deletefolder error')
+  }
+}
+
+export const deleteNote = async (noteId) => {
+  try {
+    const id = noteId
+    await api.delete(`/notes/${id}`)
+  } catch (error) {
+    console.log('apiservice deletenote error')
+  }
+}
+
 // export const makeNotes = async (newNote) => {
 //   try {
 //     const 

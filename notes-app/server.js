@@ -303,29 +303,32 @@ app.delete('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) 
 });
 
 // delete folder-- works
-app.delete('/user/:user_id/folders/:folder_id', async (req, res) => {
+app.delete('/folders/:folder_id', async (req, res) => {
   try {
-    const userId = req.params.user_id;
+    // const userId = req.params.user_id;
     const folderId = req.params.folder_id;
+    console.log('this is folder id', folderId)
+    // const user = await Folder.findByPk(userId);
+    await Folder.destroy({where: {id: folderId}});
+    res.send('Folder deleted')
 
-    const user = await Folder.findByPk(userId);
-    const folder = await Folder.findByPk(folderId);
-    if (user) {
-      if (folder) {
-        if (userId == folder.dataValues.userId) {
-          // console.log(folder.dataValues);
-          await Folder.destroy({
-            where: { id: folderId }
-          });
-          res.json(`Folder with id of ${folderId} has been deleted`);
-        }
-      }
-    }
-    else {
-      res.status(400).json({
-        message: "folder was not deleted"
-      });
-    }
+
+    // if (user) {
+    //   if (folder) {
+    //     if (userId == folder.dataValues.userId) {
+    //       // console.log(folder.dataValues);
+    //       await Folder.destroy({
+    //         where: { id: folderId }
+    //       });
+    //       res.json(`Folder with id of ${folderId} has been deleted`);
+    //     }
+    //   }
+    // }
+    // else {
+    //   res.status(400).json({
+    //     message: "folder was not deleted"
+    //   });
+    // }
   } catch (error) {
     console.log('this error came about from deleting folders');
     throw error
