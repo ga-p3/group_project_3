@@ -4,7 +4,7 @@ import { getProfile, getFolders, getNotes, findNotes, deleteNote } from '../serv
 import authService from '../services/authService';
 import { Router, Link } from 'react-router-dom';
 import { checkServerIdentity } from 'tls';
-
+import "../styles/Notes.css"
 
 class Notes extends Component {
     constructor(props) {
@@ -109,23 +109,23 @@ class Notes extends Component {
         const { notes, user } = this.state
         // console.log('NJR', notes)
         const folderId = this.props.match.params.folder_id
+        // const folderTitle = this.props.match.params.folders.title
         // console.log('render',this.state.notes)
         return (
             <div className="note-list" onClick={this.handleClick}>
                 <h2>Note List</h2>
-                <div className="note-container">
+                <div className="notes-container">
                     {/* {this.state.notes} */}
                     {this.state.notes.map(note => {
                         if (note.folderId == folderId) {
-
-                        return (
-                            <div key={note.id}>
-                                <h3>{note.title}</h3>
-                                <h6>{note.content}</h6>
-                                
-                                <button onClick={this.handleDelete} value={note.id}>Delete</button>
-                            </div>
-                        )
+                            return (
+                                <div className="note-item" key={note.id}>
+                                    <h3 className="note-title">{note.title}</h3>
+                                    <h6 className="note-content">{note.content}</h6>
+                                    
+                                    <button onClick={this.handleDelete} value={note.id}>Delete</button>
+                                </div>
+                            )
                         }
                     })}
                 </div>

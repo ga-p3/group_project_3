@@ -66,6 +66,7 @@ class SignupForm extends Component {
                         <input
                             type='text'
                             name='name'
+                            placeholder="Jon Doe"
                             onChange={this.handleTextInput}
                             value={this.state.name}
                         />
@@ -75,6 +76,7 @@ class SignupForm extends Component {
                         <input
                             type='text'
                             name='email'
+                            placeholder="No AOL emails"
                             onChange={this.handleTextInput}
                             value={this.state.email}
                         />
@@ -85,12 +87,17 @@ class SignupForm extends Component {
                         <input
                             type='password'
                             name='password'
+                            placeholder="Strong Password"
                             onChange={this.handleTextInput}
                             value={this.state.password}
                         />
                     </div>
 
-                    <button id="signUpButton">Sign Up</button>
+                    <button
+                        className="sign-in-button"
+                        id="sign-up-button">
+                            Sign Up
+                    </button>
                 </form>
             </div>
         )
