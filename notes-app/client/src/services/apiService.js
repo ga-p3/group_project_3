@@ -43,8 +43,8 @@ export const getProfile = async() => {
     let { data } = response
     return data
   } catch (error) {
-    console.log('no folders retrieved in apiService getFolders - OK if user not signed in')
-    throw error
+    console.error('no folders retrieved in apiService getFolders - OK if user not signed in')
+    // throw error
   }
 }
 
@@ -70,7 +70,7 @@ export const makeFolders = async (newFolder) => {
     data.userId = id
     return data
   } catch (error) {
-    console.log('ERROR SENDING API REQ TO API.POST')
+    console.error('ERROR SENDING API REQ TO API.POST')
   }
 }
 
@@ -79,17 +79,57 @@ export const findNotes = async (notesId) => {
     const id = notesId
     const response = await api.get(`/user/${id}/notes`)
     let { data } = response
-    console.log(data)
+    // console.log(data)
     return data
   } catch (error) {
-    console.log('error in apiservice findnotes')
+    console.error('error in apiservice findnotes')
   }
 }
 
-// export const makeNotes = async (newNote) => {
-//   try {
-//     const 
-//   } catch (error) {
-//     console.log('Error sending API to REQ to API.POST to Create Note')
-//   }
-// }
+
+export const updateFolder = async (id, folder) => {
+  try {
+    const response = await api.put(`/folders/${id}`, folder)
+    console.log(response)
+  } catch (error) {
+    console.error('apiservice updatefolder')
+  }
+}
+
+
+export const deleteFolder = async (folderId) => {
+  try {
+    const id = folderId
+    await api.delete(`/folders/${id}`)
+  } catch (error) {
+    console.error('apiservice deletefolder error')
+  }
+}
+
+export const deleteNote = async (noteId) => {
+  try {
+    const id = noteId
+    await api.delete(`/notes/${id}`)
+  } catch (error) {
+    console.error('apiservice deletenote error')
+  }
+}
+
+export const makeNotes = async (noteBody, user_id, folder_id) => {
+  try {
+    
+    const note = await api.post(`/user/${user_id}/folders/${folder_id}/notes`, noteBody)
+    console.log(note)
+  } catch (error) {
+    console.log('Error sending API to REQ to API.POST to Create Note')
+  }
+}
+
+export const updateNote = async (id, note) => {
+  try {
+    const response = await api.put(`/notes/${id}`, note)
+    console.log(response)
+  } catch (error) {
+    console.error('apiservice updatefolder')
+  }
+}

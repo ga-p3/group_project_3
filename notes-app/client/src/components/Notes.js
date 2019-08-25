@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import CreateNoteForm from './NoteForm';
-import { getProfile, getFolders, getNotes, findNotes } from '../services/apiService';
+import { getProfile, getFolders, getNotes, findNotes, deleteNote } from '../services/apiService';
 import authService from '../services/authService';
-import { Router, Link } from 'react-router-dom'; 
+import { Router, Link } from 'react-router-dom';
 import { checkServerIdentity } from 'tls';
+
 
 class Notes extends Component {
     constructor(props) {
-        super(props) 
+        super(props)
         this.state = {
-            user: props.user, 
-            folders: [], 
-            notes: [], 
-            title: '', 
-            content: ''
+            user: props.user,
+            folders: [],
+            notes: [],
+            title: '',
+            content: '',
+            delete: false
         }
     }
     async componentDidMount() {
-        await this.fetchNotes()
+        if (this.state.user) {
+            console.log(this.state.user)
+            await this.fetchNotes()
+        } else {
+            
+        }
     }
 
     // fetchNotes = async () => {
@@ -42,38 +49,50 @@ class Notes extends Component {
     // }
 
 
-  async fetchNotes() {
-    try {
-        const id = await this.state.user[0].id
-      const findAllNotes = await findNotes(id)
-      // put notes in state
-      this.setState({
-        isSignedIn: authService.isAuthenticated(),
-        notes: findAllNotes
-      })
-    //   console.log('notes from user', findAllNotes)
-    } catch (error) {
-      console.log('help notes')
-    }
-  }
-
-
-    renderNotes = async () => {
+    fetchNotes = async () => {
         try {
-            
-            await console.log('NJ RN',this.state.notes)
-            await this.state.notes.map(note=>{
-                return (
-                    <div>
-                        <h5>{note.title}</h5>
-                        <h6>{note.content}</h6>
-                    </div>
-                )
+            console.log(this.state.user)
+            const id = this.state.user[0].id
+            // console.log('idFN',id)
+            const findAllNotes = await findNotes(id)
+            // put notes in state
+            this.setState({
+                isSignedIn: authService.isAuthenticated(),
+                notes: findAllNotes
             })
+            //   console.log('notes from user', findAllNotes)
         } catch (error) {
-            console.log('NJ RN')
+            console.error('help notes', error)
         }
     }
+
+    handleDelete = async (event) => {
+        const id = event.target.value
+        
+        await deleteNote(id)
+        this.setState({delete: true})
+        await this.fetchNotes()
+    }
+    
+      
+
+
+    // renderNotes = async () => {
+    //     try {
+
+    //         await console.log('NJ RN',this.state.notes)
+    //         await this.state.notes.map(note=>{
+    //             return (
+    //                 <div>
+    //                     <h5>{note.title}</h5>
+    //                     <h6>{note.content}</h6>
+    //                 </div>
+    //             )
+    //         })
+    //     } catch (error) {
+    //         console.log('NJ RN')
+    //     }
+    // }
 
     // handleClick = async (event) => {
     //     event.preventDefault()
@@ -88,13 +107,29 @@ class Notes extends Component {
 
     render() {
         const { notes, user } = this.state
-        return(
+        // console.log('NJR', notes)
+        const folderId = this.props.match.params.folder_id
+        // console.log('render',this.state.notes)
+        return (
             <div className="note-list" onClick={this.handleClick}>
-                    <h2>Note List</h2>
+                <h2>Note List</h2>
                 <div className="note-container">
                     {/* {this.state.notes} */}
+                    {this.state.notes.map(note => {
+                        if (note.folderId == folderId) {
+
+                        return (
+                            <div key={note.id}>
+                                <h3>{note.title}</h3>
+                                <h6>{note.content}</h6>
+                                
+                                <button onClick={this.handleDelete} value={note.id}>Delete</button>
+                            </div>
+                        )
+                        }
+                    })}
                 </div>
-                {/* <CreateNoteForm user={user} fetchNotes={this.fetchNotes} /> */}
+                <CreateNoteForm user={user} fetchNotes={this.fetchNotes} props={this.props} />
             </div>
         )
     }
