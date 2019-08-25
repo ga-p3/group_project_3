@@ -62,7 +62,7 @@ class NoteUpdate extends Component {
     }
 
     handleUpdate = async (e) => { 
-        e.preventDefault()
+        // e.preventDefault()
         const id = this.state.noteId
         let { title } = this.state 
         let { content } = this.state

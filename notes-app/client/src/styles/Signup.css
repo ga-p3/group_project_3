@@ -1,5 +1,5 @@
 label, input, button {
-    font-size: 14px;
+    font-size: 18px;
     margin: 10px;
 }
 
@@ -42,6 +42,10 @@ h4 {
 
 .sign-in-link:hover {
     text-shadow: 2px 2px 2px darkblue;
+}
+
+.sign-in-button:hover {
+    box-shadow: 5px 5px;
 }
 
 @media only screen and (max-width: 375px) {
