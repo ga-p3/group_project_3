@@ -82,7 +82,11 @@ class LoginForm extends Component {
             />
           </div>
 
-          <button id="logInButton">Login</button>
+          <button
+            className="sign-in-button"
+            id="log-in-button">
+              Log In
+          </button>
         </form>
       </div>
     )

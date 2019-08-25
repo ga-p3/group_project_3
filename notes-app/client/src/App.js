@@ -147,7 +147,7 @@ class App extends Component {
         <nav>
           <div>
             <Link className="link" to='/'>Home</Link>
-            <Link to='/dashboard'>Dashboard</Link>
+            <Link className="link" to='/dashboard'>Dashboard</Link>
           </div>
 
           {isSignedIn &&
@@ -158,7 +158,7 @@ class App extends Component {
                 to='/dashboard'>
                 {this.state.user.name}
               </Link>
-              <Link to='/dashboard'>{this.state.user.name}</Link>
+              {/* <Link to='/dashboard'>{this.state.user.name}</Link> */}
               <button onClick={this.signOutUser}> Sign out</button>
             </div>
           }

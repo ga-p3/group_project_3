@@ -71,15 +71,14 @@ class CreateNoteForm extends Component {
     return (
       <div className="note-form">
 
-        <div>
-          <form 
-          onSubmit={this.handleCreate} >
-            <label>Note Name</label>
+        <form 
+          onSubmit={this.handleCreate}
+        >
+          <label>New Note</label>
             <input type="text" name="title" placeholder="New Note Title"value={this.state.title} onChange={this.handleTitle}/>
             <input type="text" name="content" placeholder="New Note Content" value={this.state.content} onChange={this.handleContent}/>
             <button type="submit">Create Note</button>
-          </form>
-        </div>
+        </form>
 
 {/* 
         <form handleChange={this.handleChange} onSubmit={this.handleCreate} >

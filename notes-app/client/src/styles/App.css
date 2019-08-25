@@ -44,3 +44,9 @@ button {
 .link:hover {
   text-shadow: 2px 2px 2px darkslateblue;
 }
+
+@media only screen and (max-width: 375px) {
+  a {
+      font-size: 18px;
+  }
+}
