@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CreateNoteForm from './NoteForm';
+import NoteUpdate from './NoteUpdate';
 import { getProfile, getFolders, getNotes, findNotes, deleteNote } from '../services/apiService';
 import authService from '../services/authService';
 import { Router, Link } from 'react-router-dom';
@@ -122,7 +123,7 @@ class Notes extends Component {
                             <div key={note.id}>
                                 <h3>{note.title}</h3>
                                 <h6>{note.content}</h6>
-                                
+                                <NoteUpdate user={user} noteId={note.id} noteTitle={note.title} fetchNotes={this.fetchNotes} props={this.props}/>
                                 <button onClick={this.handleDelete} value={note.id}>Delete</button>
                             </div>
                         )
@@ -130,6 +131,7 @@ class Notes extends Component {
                     })}
                 </div>
                 <CreateNoteForm user={user} fetchNotes={this.fetchNotes} props={this.props} />
+                
             </div>
         )
     }

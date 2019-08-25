@@ -292,6 +292,22 @@ app.put('/folders/:id', async (req, res) => {
 
 
 
+
+// update note?
+app.put('/notes/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Note.update(
+      { content: req.body.content },
+      { where: { id: id } }
+    );
+    res.send('updated')
+  } catch (error) {
+    throw error
+  }
+});
+
+
 // edit note -- works
 app.put('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => {
   try {
