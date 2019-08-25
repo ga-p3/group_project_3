@@ -65,6 +65,7 @@ class LoginForm extends Component {
             <input
               type='text'
               name='email'
+              placeholder="No AOL emails"
               onChange={this.handleTextInput}
               value={this.state.email}
             />
@@ -75,6 +76,7 @@ class LoginForm extends Component {
             <input
               type='password'
               name='password'
+              placeholder="Strong Password"
               onChange={this.handleTextInput}
               value={this.state.password}
             />

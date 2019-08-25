@@ -94,12 +94,6 @@ app.get('/user/:user_id/notes', async (req, res) => {
   }
 });
 
-
-
-
-
-
-
 app.post('/folders', async (req, res) => {
   try {
     const newFolder = await Folder.create(req.body)
@@ -109,7 +103,6 @@ app.post('/folders', async (req, res) => {
     throw error
   }
 })
-
 
 // gets all notes from a specific folder-- WORKS
 app.get('/user/:user_id/folders/:folder_id', async (req, res) => {

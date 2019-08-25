@@ -109,10 +109,11 @@ class Notes extends Component {
         const { notes, user } = this.state
         // console.log('NJR', notes)
         const folderId = this.props.match.params.folder_id
+        // const folderTitle = this.props.match.params.folders.title
         // console.log('render',this.state.notes)
         return (
             <div className="note-list" onClick={this.handleClick}>
-                <h2>Note List</h2>
+                <h2>{folderId} Note List</h2>
                 <div className="note-container">
                     {/* {this.state.notes} */}
                     {this.state.notes.map(note => {
