@@ -36,11 +36,11 @@ class CreateFolderForm extends Component {
     }
     render() {
         return(
-            <div>
+            <div className="folder-form">
                 <form
                     onSubmit={this.handleSubmit}
                 >
-                    <label>Folder Name</label>
+                    <label>New Folder</label>
                     <input type="text" name="title" placeholder="New Folder Title"onChange={this.handleChange} value={this.state.title} />
                     <button type="submit">Create Folder</button>
                 </form>

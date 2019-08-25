@@ -33,7 +33,13 @@ class FolderUpdate extends Component {
                 id={`folder-${this.props.folderId}`}
             >
                 <label>Update Folder Name</label>
-                <input type="text" name="title" onChange={this.handleChange} value={this.state.title} />
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="New Folder Title"
+                    onChange={this.handleChange}
+                    value={this.state.title} 
+                />
                 <button type="submit">Update</button>
             </form>
         )
