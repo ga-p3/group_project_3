@@ -17,7 +17,6 @@ class FolderUpdate extends Component {
         this.setState({ [name]: value })
     }
 
-
     handleUpdate = async (e) => { 
         // e.preventDefault()
         const id = this.state.folderId
@@ -26,9 +25,6 @@ class FolderUpdate extends Component {
         console.log('up', updateTitle)
         await updateFolder(id, updateTitle)
     }
-
-
-
 
     render() {
         return (

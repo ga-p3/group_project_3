@@ -115,10 +115,21 @@ export const deleteNote = async (noteId) => {
   }
 }
 
-// export const makeNotes = async (newNote) => {
-//   try {
-//     const 
-//   } catch (error) {
-//     console.log('Error sending API to REQ to API.POST to Create Note')
-//   }
-// }
+export const makeNotes = async (noteBody, user_id, folder_id) => {
+  try {
+    
+    const note = await api.post(`/user/${user_id}/folders/${folder_id}/notes`, noteBody)
+    console.log(note)
+  } catch (error) {
+    console.log('Error sending API to REQ to API.POST to Create Note')
+  }
+}
+
+export const updateNote = async (id, note) => {
+  try {
+    const response = await api.put(`/notes/${id}`, note)
+    console.log(response)
+  } catch (error) {
+    console.error('apiservice updatefolder')
+  }
+}

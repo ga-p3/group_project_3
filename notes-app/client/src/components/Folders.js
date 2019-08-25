@@ -5,6 +5,7 @@ import { Route, Link } from 'react-router-dom'
 import CreateFolderForm from './FolderForm'
 import FolderUpdate from './FolderUpdate'
 import Notes from './Notes';
+import NoteForm from './NoteForm'
 import '../styles/Folders.css'
 
 class Folders extends React.Component {
@@ -49,7 +50,7 @@ class Folders extends React.Component {
     handleChange = (e) => {
         const id = e.target.parentNode.id
         // if (id === )
-        console.log(this.state.folders)
+        // console.log(this.state.folders)
         const { name, value } = e.target
         this.setState({ [name]: value })
     }

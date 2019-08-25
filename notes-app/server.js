@@ -164,33 +164,71 @@ app.post('/user/:user_id/folders', async (req, res) => {
 });
 
 // creates one note -- works
+// app.post('/user/:user_id/folders/:folder_id/notes', async (req, res) => {
+//   try {
+//     const userId = req.params.user_id;
+//     const user = await User.findByPk(req.params.user_id);
+//     const folder = await Folder.findByPk(req.params.folder_id);
+//     if (user) {
+//       if (folder.dataValues.userId == userId) {
+//         const newNote = await Note.create(req.body);
+//         await newNote.setFolder(folder);
+//         await newNote.setUser(user);
+//         res.send(newNote);
+//       }
+//       else {
+//         res.status(400).json({
+//           message: "folder not found"
+//         });
+//       }
+//     }
+//     else {
+//       res.status(400).json({
+//         message: "user not found"
+//       });
+//     }
+//   } catch (error) {
+//     throw error
+//   }
+// });
+
+
+
 app.post('/user/:user_id/folders/:folder_id/notes', async (req, res) => {
   try {
-    const userId = req.params.user_id;
     const user = await User.findByPk(req.params.user_id);
     const folder = await Folder.findByPk(req.params.folder_id);
-    if (user) {
-      if (folder.dataValues.userId == userId) {
-        const newNote = await Note.create(req.body);
-        await newNote.setFolder(folder);
-        await newNote.setUser(user);
-        res.send(newNote);
-      }
-      else {
-        res.status(400).json({
-          message: "folder not found"
-        });
-      }
-    }
-    else {
-      res.status(400).json({
-        message: "user not found"
-      });
-    }
+    const newNote = await Note.create(req.body);
+    await newNote.setFolder(folder);
+    await newNote.setUser(user);
+    res.send(newNote)
   } catch (error) {
     throw error
   }
 });
+
+
+// create new note REED room -- SCRAPPED NO TIME
+// app.post('/user/:id/notes', async (req, res) => {
+//   try {
+//     const user = await User.findByPk(req.params.id);
+//     if (user) {
+//       const newNote = await Note.create(req.body);
+//       // console.log(newFolder, user)
+//       await newNote.setUser(user);
+//       res.send(newNote);
+//     }
+//     else {
+//       res.status(400).json({
+//         message: "user not found"
+//       });
+//     }
+//   } catch (error) {
+//     throw error
+//   }
+// });
+
+
 
 
 // get user note -- works
@@ -293,38 +331,47 @@ app.put('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => 
 });
 
 // delete note-- works
-app.delete('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => {
+// app.delete('/user/:user_id/folders/:folder_id/notes/:note_id', async (req, res) => {
 
+//   try {
+//     const userId = req.params.user_id;
+//     const folderId = req.params.folder_id;
+//     const noteId = req.params.note_id;
+
+//     const user = await User.findByPk(userId);
+//     const folder = await Folder.findByPk(folderId);
+//     const note = await Note.findByPk(noteId);
+
+//     if (user) {
+//       if (folder) {
+//         if (note) {
+//           if (userId == folder.dataValues.userId && userId == note.dataValues.userId) {
+//             await Note.destroy({
+//               where: { id: noteId }
+//             });
+//             res.json(`Note with id of ${noteId} has been deleted`);
+//           }
+//         }
+//       }
+//     }
+//   } catch (error) {
+//     throw error
+//   }
+// });
+
+app.delete('/notes/:note_id', async (req, res) => {
   try {
-    const userId = req.params.user_id;
-    const folderId = req.params.folder_id;
     const noteId = req.params.note_id;
-
-    const user = await User.findByPk(userId);
-    const folder = await Folder.findByPk(folderId);
-    const note = await Note.findByPk(noteId);
-
-    if (user) {
-      if (folder) {
-        if (note) {
-          if (userId == folder.dataValues.userId && userId == note.dataValues.userId) {
-            await Note.destroy({
-              where: { id: noteId }
-            });
-            res.json(`Note with id of ${noteId} has been deleted`);
-          }
-        }
-      }
-    }
+    await Note.destroy({ where: { id: noteId } });
+    res.send('Note Deleted')
   } catch (error) {
-    throw error
+    console.error('delete note SJS', error)
   }
 });
 
 // delete folder-- works
 app.delete('/folders/:folder_id', async (req, res) => {
   try {
-    // const userId = req.params.user_id;
     const folderId = req.params.folder_id;
     console.log('this is folder id', folderId)
     // const user = await Folder.findByPk(userId);

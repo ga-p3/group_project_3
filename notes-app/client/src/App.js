@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Notes from './components/Notes'
 import Folders from './components/Folders'
+import CreateNoteForm from './components/NoteForm'
 import { Route, Link, Switch } from 'react-router-dom'
 import { login, signup, getProfile, findNotes } from './services/apiService'
 import authService from './services/authService'
@@ -48,14 +49,14 @@ class App extends Component {
 
   async fetchNotes() {
     try {
-        const id = await this.state.user[0].id
+      const id = await this.state.user[0].id
       const findAllNotes = await findNotes(id)
       // put notes in state
       this.setState({
         isSignedIn: authService.isAuthenticated(),
         notes: findAllNotes
       })
-    //   console.log('notes from user', findAllNotes)
+      //   console.log('notes from user', findAllNotes)
     } catch (error) {
       console.log('help notes')
     }
@@ -155,7 +156,7 @@ class App extends Component {
                 className="link"
                 id="username"
                 to='/dashboard'>
-                  {this.state.user.name}
+                {this.state.user.name}
               </Link>
               <Link to='/dashboard'>{this.state.user.name}</Link>
               <button onClick={this.signOutUser}> Sign out</button>
@@ -183,7 +184,7 @@ class App extends Component {
               folders={this.state.folders}
             />
             <Route // Why can't this be a protected route
-              path='/folders/:folder_id'
+              path='/folder/:folder_id'
               user={user}
               render={(props) => (
                 <Notes
@@ -196,7 +197,7 @@ class App extends Component {
               )}
             />
             <Route
-              
+
               path='/login'
               render={
                 (props) =>

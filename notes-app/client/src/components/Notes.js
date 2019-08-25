@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import CreateNoteForm from './NoteForm';
-import { getProfile, getFolders, getNotes, findNotes } from '../services/apiService';
+import { getProfile, getFolders, getNotes, findNotes, deleteNote } from '../services/apiService';
 import authService from '../services/authService';
 import { Router, Link } from 'react-router-dom';
 import { checkServerIdentity } from 'tls';
+
 
 class Notes extends Component {
     constructor(props) {
@@ -13,11 +14,17 @@ class Notes extends Component {
             folders: [],
             notes: [],
             title: '',
-            content: ''
+            content: '',
+            delete: false
         }
     }
     async componentDidMount() {
-        await this.fetchNotes()
+        if (this.state.user) {
+            console.log(this.state.user)
+            await this.fetchNotes()
+        } else {
+            
+        }
     }
 
     // fetchNotes = async () => {
@@ -42,9 +49,11 @@ class Notes extends Component {
     // }
 
 
-    async fetchNotes() {
+    fetchNotes = async () => {
         try {
-            const id = await this.state.user[0].id
+            console.log(this.state.user)
+            const id = this.state.user[0].id
+            // console.log('idFN',id)
             const findAllNotes = await findNotes(id)
             // put notes in state
             this.setState({
@@ -53,9 +62,19 @@ class Notes extends Component {
             })
             //   console.log('notes from user', findAllNotes)
         } catch (error) {
-            console.log('help notes')
+            console.error('help notes', error)
         }
     }
+
+    handleDelete = async (event) => {
+        const id = event.target.value
+        
+        await deleteNote(id)
+        this.setState({delete: true})
+        await this.fetchNotes()
+    }
+    
+      
 
 
     // renderNotes = async () => {
@@ -90,6 +109,7 @@ class Notes extends Component {
         const { notes, user } = this.state
         // console.log('NJR', notes)
         const folderId = this.props.match.params.folder_id
+        // console.log('render',this.state.notes)
         return (
             <div className="note-list" onClick={this.handleClick}>
                 <h2>Note List</h2>
@@ -102,12 +122,14 @@ class Notes extends Component {
                             <div key={note.id}>
                                 <h3>{note.title}</h3>
                                 <h6>{note.content}</h6>
+                                
+                                <button onClick={this.handleDelete} value={note.id}>Delete</button>
                             </div>
                         )
                         }
                     })}
                 </div>
-                {/* <CreateNoteForm user={user} fetchNotes={this.fetchNotes} /> */}
+                <CreateNoteForm user={user} fetchNotes={this.fetchNotes} props={this.props} />
             </div>
         )
     }
