@@ -1,61 +1,96 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { makeNotes } from '../services/apiService';
 
 class CreateNoteForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: {}, 
+      props: props,
+      user: props.user,
       folders: [],
-      note: [], 
+      note: [],
       title: '',
-      content: ''
+      content: '',
+      showError: false
     }
   }
 
-  handleChange = (e) => {
-    const { title, value } = e.target
-    this.setState({ [title]: value })
+  handleTitle = (e) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    this.setState({ [name]: value })
   }
 
-  // handleSubmit = async (e) => {
+  handleContent = (e) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+  }
+
+  handleCreate = async (e) => {
+    // e.preventDefault()
+    try {
+      const folderId = this.state.props.props.match.params.folder_id
+      const userId = this.state.user[0].id
+      const newNote = {
+        title: this.state.title,
+        content: this.state.content
+      }
+      console.log(newNote, userId, folderId)
+      const makeNote = await makeNotes(newNote, userId, folderId)
+
+      console.log(makeNote)
+
+
+
+
+      // const apiResponse = Axios.post(`/user/${}/folders/${}/notes`)
+      // const submitNotes = await axios.post(`/user/:user_id/folders/:folder_id/notes`)
+    } catch (error) {
+      throw error
+    }
+  }
+
+  // handleCreate = (e) => {
   //   e.preventDefault()
-  //   try {
-  //     const data ={ 
-  //       title: this.state.title,
-  //       content: this.state.content
-  //     }
-  //     // const apiResponse = Axios.post(`/user/${}/folders/${}/notes`)
-  //     // const submitNotes = await axios.post(`/user/:user_id/folders/:folder_id/notes`)
-  //   } catch (error) {
-  //     throw error
-  //   }
+  //   let { title } = this.state
+  //   let newFolder = { title }
+
+  //   // console.log('NoteFormJs handleCreate',title)
+
+  //   // console.log(title)
+
+  //   // let data = await Axios.post('/icecreams', newIceCream)
+  //   // this.setState({created:true})
   // }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    let { title } = this.state
-    let newFolder = { title }
 
-    // console.log('NoteFormJs handleSubmit',title)
-
-    // console.log(title)
-
-    // let data = await Axios.post('/icecreams', newIceCream)
-    // this.setState({created:true}
-  }
 
   render() {
     return (
-      <div>
-        <form handleChange={this.handleChange} onSubmit={this.handleSubmit} >
+      <div className="note-form">
+
+        <div>
+          <form 
+          onSubmit={this.handleCreate} >
+            <label>Note Name</label>
+            <input type="text" name="title" value={this.state.title} onChange={this.handleTitle}/>
+            <input type="text" name="content" value={this.state.content} onChange={this.handleContent}/>
+            <button type="submit">Create Note</button>
+          </form>
+        </div>
+
+{/* 
+        <form handleChange={this.handleChange} onSubmit={this.handleCreate} >
           <label>title</label>
           <input type='text' name='title' defaultValue={this.state.title} />
 
           <label>content</label>
           <input type='text' name='content' defaultValue={this.state.content} />
 
-        </form>
+          <button>Create</button>
+        </form> */}
       </div>
     )
   }
