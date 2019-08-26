@@ -28,8 +28,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // app.use(errorHandler)
 
-// app.use(express.static(path.join(__dirname, './client/build')));
-
 app.use('/auth', authRouter);
 app.use('/app', authorized, appRouter);
 app.use(passport.initialize());

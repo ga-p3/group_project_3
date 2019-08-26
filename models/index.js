@@ -5,9 +5,13 @@ const FolderModel = require('./folder');
 const UserFolderModel = require('./user_folder');
 const bcrypt = require('bcrypt');
 
-const db = new Sequelize({
+const db = new Sequelize((process.env.DATABASE_URL || 'postgres://localhost:5432/notes_db'),{
     database: 'notes_db',
-    dialect: 'postgres'
+    dialect: 'postgres',
+    define: {
+        underscored: true,
+        returning:true
+    }
 });
 
 const User = UserModel(db, Sequelize);
