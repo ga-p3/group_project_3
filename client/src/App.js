@@ -146,7 +146,7 @@ class App extends Component {
       <div className='App'>
         <nav>
           <div>
-            <Link className="link" to='/'>Home</Link>
+            <Link className="link" to='/'>About</Link>
             <Link className="link" to='/dashboard'>Dashboard</Link>
           </div>
 
@@ -173,6 +173,7 @@ class App extends Component {
 
         <main>
           <Switch>
+            
             <Route className="link"
               exact path='/'
               component={Home}

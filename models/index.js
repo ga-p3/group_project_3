@@ -5,26 +5,15 @@ const FolderModel = require('./folder');
 const UserFolderModel = require('./user_folder');
 const bcrypt = require('bcrypt');
 
-// let = db
-if (process.env.NODE_ENV === 'production') {
-    // If the node environment is production, connect to a remote PSQL database
-    db = new Sequelize(process.env.DATABASE_URL , {
-      dialect: 'postgres'
-    });
-  }
-  else {
-    // Else connect to a local instance of PSQL running on your machine
-    db = new Sequelize({
-      database: 'notes_db',
-      dialect: 'postgres'
-    });
-  }
+const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/notes_db', {
+    database: 'notes_db',
+    dialect: 'postgres',
+    define : {
+      underscored: true,
+      returning: true
+    }  
+})
 
-
-// const db = new Sequelize({
-//     database: 'notes_db',
-//     dialect: 'postgres'
-// });
 
 const User = UserModel(db, Sequelize);
 const Note = NoteModel(db, Sequelize);
