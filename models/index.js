@@ -5,7 +5,7 @@ const FolderModel = require('./folder');
 const UserFolderModel = require('./user_folder');
 const bcrypt = require('bcrypt');
 
-const db = new Sequelize((process.env.DATABASE_URL || 'postgres://localhost:5432/notes_db'),{
+const db = new Sequelize((process.env.REACT_APP_HEROKU_DB || 'https://notes-app-p3.herokuapp.com/'),{
     database: 'notes_db',
     dialect: 'postgres',
     define: {
