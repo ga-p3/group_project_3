@@ -48,7 +48,7 @@ class SignupForm extends Component {
                 <div className='errorMessage'>
                     <span>
                         An error occurred, please ensure your credentials are correct
-          </span>
+                    </span>
                 </div>
             )
         }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './styles/App.css'
-import Home from './components/Home'
+import About from './components/About'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -146,7 +146,7 @@ class App extends Component {
       <div className='App'>
         <nav>
           <div>
-            <Link className="link" to='/'>Home</Link>
+            <Link className="link" to='/'>About</Link>
             <Link className="link" to='/dashboard'>Dashboard</Link>
           </div>
 
@@ -175,7 +175,7 @@ class App extends Component {
           <Switch>
             <Route className="link"
               exact path='/'
-              component={Home}
+              component={About}
             />
             <ProtectedRoute
               path='/dashboard'
