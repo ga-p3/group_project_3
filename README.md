@@ -8,4 +8,4 @@ MVP
    * Styled using CSS
    * Incorporate authentication
 #### Product Demo
-##### https://http://notes-app-p3.surge.sh/
+##### http://notes-app-p3.surge.sh/
